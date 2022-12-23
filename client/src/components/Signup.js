@@ -11,7 +11,8 @@ const Signup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (username.trim() && password.trim() && email.trim()) {
-            console.log(email, username, password);
+            handleRegister(email, username, password, navigate);
+            //console.log(email, username, password);
             setEmail("");
             setUsername("");
             setPassword("");
@@ -45,9 +46,10 @@ const Signup = () => {
                     id="password"
                     name="password"
                     required
+                    minLength={6}
                     value={password}
                     type="password"
-                    onChange={(e)=> setUsername(e.target.value)}
+                    onChange={(e)=> setPassword(e.target.value)}
                 />
 
                 <button className="signupButton">REGISTER</button>
