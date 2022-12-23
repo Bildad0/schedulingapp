@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-routr-dom";
+import Signup from "./Signup";
 
 
 const Login = () => {
@@ -14,7 +15,7 @@ const Login = () => {
             setPassword("");
             setUsername("");
         }
-    }
+    };
 
     return (
         <main className='login'>
@@ -46,10 +47,12 @@ const Login = () => {
                     </Link>
 
                 </p>
-                
+
             </form>
 
         </main>
 
     )
 }
+
+export default Signup;
