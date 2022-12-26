@@ -1,0 +1,17 @@
+.signup {
+  height: 100vh;
+  width: auto;
+  /* background-image: url("https://imgs.search.brave.com/https://wallpapercave.com/wp/Iw471VJ.jpg"); */
+  justify-content: center;
+}
+
+.signup_form {
+  margin-top: 10px;
+  margin-left: 20%;
+  margin-right: 20%;
+  border: 1px solid grey;
+  border-radius: 12px;
+  height: 90%;
+  align-items: flex-start;
+  text-align: center;
+}

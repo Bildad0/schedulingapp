@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TimezoneSelect from "react-timezone-select";
 import { useNavigate } from "react-router-dom";
-import { time } from "../utils/resource";
+import { time } from "../../utils/resource";
 import { toast } from "react-toastify";
 
 
