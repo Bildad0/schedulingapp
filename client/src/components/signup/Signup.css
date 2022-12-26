@@ -15,3 +15,17 @@
   align-items: flex-start;
   text-align: center;
 }
+
+.signup_title {
+  margin: 10px;
+  align-self: center;
+  font-weight: bold;
+}
+
+.form_items {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  margin-left: 20%;
+  margin-right: 20%;
+}

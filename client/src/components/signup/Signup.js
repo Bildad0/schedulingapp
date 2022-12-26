@@ -24,10 +24,12 @@ const Signup = () => {
         <main className="signup">
             <form className="signup_form" onSubmit={handleSubmit}>
                 <h2 className="signup_title"> Create an Account</h2>
+                <div className="form_items">
                 <label htmlFor="email"> Email Address</label>
                 <input
                     id="email"
                     name="email"
+                    className="emailinput"
                     type='email'
                     required
                     value={email}
@@ -52,7 +54,7 @@ const Signup = () => {
                     type="password"
                     onChange={(e)=> setPassword(e.target.value)}
                 />
-
+                </div>
                 <button className="signupButton">REGISTER</button>
                 <p style={{ textAlign: "center", marginTop: "30px" }}>
                     Already have an account? {""}
