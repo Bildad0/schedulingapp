@@ -1,4 +1,4 @@
-const express = require("express");
+import express, { urlencoded } from "express";
 const app = express();
 const PORT = 4000;
 
@@ -8,7 +8,7 @@ const database = [];
 //generate random string id
 const generateID = () => Math.random().toString(36).substring(2, 10);
 
-app.use(express.urlencoded({extended: true}));
+app.use(urlencoded({extended: true}));
 app.use(express.json());
 
 // http get api to get user data in string format.
@@ -19,8 +19,11 @@ app.get("/api",(req, res) => {
 });
 
 
-//http post to store user data
-app.post("/register", (req, res) => {
+app.get("/register", (req, res) => {
+    //CORS policy.
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
     const { username, email, password } = req.body;
     console.log(req.body);
     

@@ -1,5 +1,6 @@
 {
   "name": "server",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,4 +15,5 @@
     "express": "^4.18.2",
     "nodemon": "^2.0.20"
   }
+  
 }

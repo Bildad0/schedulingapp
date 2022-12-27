@@ -1,6 +1,5 @@
-import { toast } from "react-toastify";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 
 export const time = [
     { id: "null", t: "Select" },
@@ -23,13 +22,18 @@ export const time = [
 
 //register new user and store the information in the server.
 export async function handleRegister(email, username, password, navigate) {
-    axios.post("http://localhost:4000/register", { email, username, password }).then(res => {
-        console.log(res);
+    
+
+    axios.post("http://localhost:4000/register", { email, username, password }, {headers:{
+        "Content-Type":"application/json",
+        Accept: "application/json",
+    },},).then(res => {
+        console.log("Response received: ", res);
         console.log(res.data);
-        toast.success(res);
-        navigate("/");
+         toast.success(res);
+        navigate("/dashboard");
     }).catch(err => {
-        console.log(err);
-        toast.error(err);
+        console.log("Error received:", err.message);
+        toast.error(err.message);
     }); 
     }
