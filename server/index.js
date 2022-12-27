@@ -49,6 +49,12 @@ app.post("/register", (req, res) => {
   res.json({ error_message: "User already exists!" });
 });
 
+//login user to the server
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+  console.log(req.body);
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

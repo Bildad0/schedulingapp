@@ -1,4 +1,5 @@
 import axios from "axios";
+import { JSON } from "mysql/lib/protocol/constants/types";
 import { toast } from "react-toastify";
 
 export const time = [
@@ -33,12 +34,31 @@ export async function handleRegister(email, username, password, navigate) {
     )
     .then((res) => {
       console.log("Response received: ", res);
-      console.log(res.data);
+      console.log(res);
       toast.success(res);
-      navigate("/dashboard");
+      navigate("/");
     })
     .catch((err) => {
       console.log("Error received:", err.message);
       toast.error(err.message);
     });
+}
+
+//handle login
+export default async function handleLogin(username, password) {
+  try {
+    const request = await fetch("http://localhost:4000/login", {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+
+      //will continue from here
+      //TODO:
+    });
+  } catch (err) {
+    toast.error(err);
+  }
 }

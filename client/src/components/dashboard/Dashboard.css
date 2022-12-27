@@ -1,0 +1,36 @@
+.dashboard_nav {
+  display: flex;
+  flex-direction: inline-box;
+  align-items: stretch;
+  background-color: rgb(216, 142, 142);
+}
+
+.dashboard_title {
+  margin-left: 10px;
+  margin-right: auto;
+  align-items: center;
+  color: black;
+}
+.logout_btn:hover {
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: auto;
+  background-color: rgb(236, 149, 149);
+  color: white;
+  width: auto;
+  height: 40px;
+  border: 3px solid red;
+  border-radius: 25%;
+}
+.logout_btn {
+  border-radius: 25%;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: auto;
+  height: 40px;
+  width: auto;
+  background-color: white;
+  color: red;
+  font-weight: bold;
+  border: none;
+}
