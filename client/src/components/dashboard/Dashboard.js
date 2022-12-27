@@ -58,6 +58,7 @@ const Dashboard = () => {
           <TimezoneSelect
             value={selectedTimezone}
             onChange={setSelectedTimezone}
+            className="timeZone"
           />
 
           {schedule.map((sch, id) => (
@@ -67,6 +68,7 @@ const Dashboard = () => {
                 <label htmlFor="startTime">Start Time</label>
                 <select
                   name="startTime"
+                  className="time"
                   id="starttime"
                   onChange={(e) => handleTimechange(e, id)}
                 >
@@ -81,6 +83,7 @@ const Dashboard = () => {
                 <label htmlFor="endTime">End Time</label>
                 <select
                   name="endTime"
+                  className="time"
                   id="endTime"
                   onChange={(e) => handleTimechange(e, id)}
                 >

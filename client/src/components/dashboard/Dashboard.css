@@ -9,15 +9,17 @@
   margin-left: 10px;
   margin-right: auto;
   align-items: center;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   color: black;
 }
 .logout_btn:hover {
   margin-top: 10px;
   margin-right: 10px;
   margin-left: auto;
-  background-color: rgb(236, 149, 149);
+  background-color: red;
   color: white;
   width: auto;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   height: 40px;
   border: 3px solid red;
   border-radius: 25%;
@@ -29,8 +31,66 @@
   margin-left: auto;
   height: 40px;
   width: auto;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   background-color: white;
   color: red;
   font-weight: bold;
   border: none;
+}
+.dashboard_main {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+.dashboard_heading {
+  color: black;
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.timezone_wrapper {
+  width: auto;
+}
+
+.timeZone {
+  width: 70%;
+}
+
+p {
+  font-weight: bold;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+.select_wrapper {
+  display: inline-block;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.time {
+  margin-left: 10px;
+  border: none;
+  height: 20px;
+  width: auto;
+}
+
+.savebtn_container {
+  align-items: center;
+  margin-top: 30px;
+  margin-left: inherit;
+  margin-right: inherit;
+}
+
+.savebtn_container > button {
+  background-color: rgba(93, 158, 93, 0.61);
+  color: green;
+  height: 40px;
+  width: auto;
+  border: none;
+  border-radius: 15%;
+  font-weight: bold;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.savebtn_container > button:hover {
+  background-color: green;
+  color: whitesmoke;
 }
