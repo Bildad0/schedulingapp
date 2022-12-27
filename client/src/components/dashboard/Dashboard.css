@@ -39,20 +39,24 @@
 }
 .dashboard_main {
   margin-left: 30%;
-  margin-right: 30%;
+  margin-right: auto;
+  align-items: center;
 }
 .dashboard_heading {
   color: black;
+  margin-left: 10%;
+  margin-right: auto;
+  align-items: center;
   font-weight: bold;
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
 .timezone_wrapper {
-  width: auto;
+  width: 95%;
 }
 
 .timeZone {
-  width: 70%;
+  width: 45%;
 }
 
 p {
@@ -75,8 +79,9 @@ p {
 .savebtn_container {
   align-items: center;
   margin-top: 30px;
-  margin-left: inherit;
+  margin-left: 10%;
   margin-right: inherit;
+  margin-bottom: 30px;
 }
 
 .savebtn_container > button {

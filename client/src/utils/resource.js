@@ -45,7 +45,7 @@ export async function handleRegister(email, username, password, navigate) {
 }
 
 //handle login
-export default async function handleLogin(username, password) {
+export async function handleLogin(username, password, navigate) {
   try {
     const request = await fetch("http://localhost:4000/login", {
       method: "POST",
@@ -54,10 +54,16 @@ export default async function handleLogin(username, password) {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-
-      //will continue from here
-      //TODO:
     });
+    const data = request.json();
+    if (data.error_message) {
+      toast.error(data.error_message);
+    } else {
+      toast.success(data.message);
+      localStorage.setItem("_id", data.data._id);
+      localStorage.setItem("_myEmail", data.data._email);
+      navigate("/dashboard");
+    }
   } catch (err) {
     toast.error(err);
   }

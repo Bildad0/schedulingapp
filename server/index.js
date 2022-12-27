@@ -1,4 +1,4 @@
-import express, { urlencoded } from "express";
+import express, { json, urlencoded } from "express";
 const app = express();
 const PORT = 4000;
 
@@ -16,13 +16,6 @@ app.use((res) => {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
-});
-
-// http get api to get user data in string format.
-app.get("/api", (req, res) => {
-  res.json({
-    message: "hello world",
-  });
 });
 
 app.post("/register", (req, res) => {
@@ -52,7 +45,20 @@ app.post("/register", (req, res) => {
 //login user to the server
 app.post("/login", (req, res) => {
   const { username, password } = req.body;
-  console.log(req.body);
+  let result = database.filter(
+    (user) => user.username == username && user.password == password
+  );
+  if (result.length !== 1) {
+    return res.json({ error_message: "Incorrect credentials" });
+  }
+  res,
+    json({
+      message: "Login Successfully",
+      data: {
+        _id: result[0].id,
+        _email: result[0].email,
+      },
+    });
 });
 
 app.listen(PORT, () => {

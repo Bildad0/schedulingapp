@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { handleLogin } from "../../utils/resource";
 import "../signup/Signup.css";
 
 const Login = () => {
@@ -11,6 +12,7 @@ const Login = () => {
     if (username.trim() && password.trim()) {
       e.preventDefault();
       console.log({ username, password });
+      handleLogin(username, password, navigate);
       setPassword("");
       setUsername("");
     }

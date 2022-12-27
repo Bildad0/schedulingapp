@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TimezoneSelect from "react-timezone-select";
 import { useNavigate } from "react-router-dom";
 import { time } from "../../utils/resource";
@@ -41,6 +41,12 @@ const Dashboard = () => {
     localStorage.removeItem("_myEmail");
     navigate("/");
   };
+
+  useEffect(() => {
+    if (!localStorage.getItem("_id")) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   return (
     <div>
