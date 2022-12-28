@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TimezoneSelect from "react-timezone-select";
 import { useNavigate } from "react-router-dom";
-import { time } from "../../utils/resource";
+import { createSchedule, time } from "../../utils/resource";
 import { toast } from "react-toastify";
 import "./Dashboard.css";
 
@@ -30,7 +30,7 @@ const Dashboard = () => {
   //logs the user's schedule to the console after setting the availability
   const handleSaveSchedule = () => {
     if (JSON.stringify(selectedTimezone) !== "{}") {
-      console.log(schedule);
+      createSchedule(selectedTimezone, schedule, navigate);
     } else {
       toast.error("Select your timezone");
     }

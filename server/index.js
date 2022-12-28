@@ -37,7 +37,15 @@ app.post("/register", (req, res) => {
       timezone: {},
       schedule: [],
     });
-    return res.json({ message: "Account created succesfully!" });
+    return res.json({
+      message: "Account created succesfully!",
+      data: {
+        _id: result[0].id,
+        _username: result[0].username,
+        _email: result[0].email,
+        _timezone: result[0].timezone,
+      },
+    });
   }
   res.json({ error_message: "User already exists!" });
 });
@@ -51,14 +59,18 @@ app.post("/login", (req, res) => {
   if (result.length !== 1) {
     return res.json({ error_message: "Incorrect credentials" });
   }
-  res,
-    json({
-      message: "Login Successfully",
-      data: {
-        _id: result[0].id,
-        _email: result[0].email,
-      },
-    });
+  res.json({
+    message: "Login Successfully",
+    data: {
+      _id: result[0].id,
+      _email: result[0].email,
+    },
+  });
+});
+
+app.post("/schedule/create", (req, res) => {
+  const { userId, timezone, schedule } = req.body;
+  console.log(req.body);
 });
 
 app.listen(PORT, () => {

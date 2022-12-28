@@ -71,3 +71,27 @@ export async function handleLogin(username, password, navigate) {
     toast.error(err.message);
   }
 }
+
+//create schedules
+export async function createSchedule(selectedTimezone, schedule, navigate) {
+  try {
+    await axios.post(
+      "http://localhost:4000/schedule/create",
+      {
+        userId: localStorage.getItem("_id"),
+        timezone: selectedTimezone,
+        schedule,
+      },
+      {
+        headers: {
+          "content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    navigate(`/profile/${localStorage.getItem("_id")}`);
+  } catch (err) {
+    console.log("Error Received:", err.message);
+    toast.error(err.message);
+  }
+}
