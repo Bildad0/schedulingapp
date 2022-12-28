@@ -18,10 +18,10 @@ export const time = [
   { id: "19", t: "19:00pm" },
 ];
 
-//register new user and store the information in the server.
+//register new user.
 export async function handleRegister(email, username, password, navigate) {
-  axios
-    .post(
+  try {
+    const result = await axios.post(
       "http://localhost:4000/register",
       { email, username, password },
       {
@@ -30,20 +30,21 @@ export async function handleRegister(email, username, password, navigate) {
           Accept: "application/json",
         },
       }
-    )
-    .then((res) => {
-      console.log("Response received: ", res);
-      console.log(res);
-      toast.success(res);
+    );
+    const data = result.json();
+    if (data.error_message) {
+      toast.error(data.error_message);
+    } else {
+      toast.success(data.message);
       navigate("/");
-    })
-    .catch((err) => {
-      console.log("Error received:", err.message);
-      toast.error(err.message);
-    });
+    }
+  } catch (err) {
+    console.log("Error received:", err.message);
+    toast.error(err);
+  }
 }
 
-//handle login
+//login user
 export async function handleLogin(username, password, navigate) {
   try {
     const result = await axios.post(
@@ -66,6 +67,7 @@ export async function handleLogin(username, password, navigate) {
       navigate("/dashboard");
     }
   } catch (err) {
-    toast.error(err);
+    console.log("Error received:", err.message);
+    toast.error(err.message);
   }
 }
