@@ -46,9 +46,7 @@ const Login = () => {
             className="textinput"
           />
         </div>
-        <button className="loginButton" onClick={navigate("/dashboard")}>
-          LOG IN
-        </button>
+        <button className="loginButton">LOG IN</button>
         <p
           style={{ textAlign: "center", margibTop: "30px" }}
           className="question"

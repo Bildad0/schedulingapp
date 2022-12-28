@@ -1,8 +1,11 @@
 import React from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 const Profile = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!localStorage.getItem("_id")) {
