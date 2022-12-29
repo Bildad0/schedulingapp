@@ -1,4 +1,4 @@
-import express, { json, urlencoded } from "express";
+import express, { urlencoded } from "express";
 const app = express();
 const PORT = 4000;
 
@@ -68,11 +68,17 @@ app.post("/login", (req, res) => {
   });
 });
 
+//create schedules in the server
 app.post("/schedule/create", (req, res) => {
   const { userId, timezone, schedule } = req.body;
-  console.log(req.body);
+  let result = database.filter((db) => db.id === userId);
+  result[0].timezone = timezone;
+  result[0].schedule = schedule;
+  res.json({ message: "Ok" });
 });
 
+//getting schedules
+app.get("/schedules/:id", (req, res) => {});
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

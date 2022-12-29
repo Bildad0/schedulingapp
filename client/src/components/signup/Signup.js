@@ -23,8 +23,8 @@ const Signup = () => {
   return (
     <main className="signup">
       <form className="signup_form" onSubmit={handleSubmit}>
-        <h2 className="signup_title"> Create an Account</h2>
         <div className="form_items">
+          <h2 className="signup_title"> Create an Account</h2>
           <label htmlFor="email" className="label">
             {" "}
             Email Address

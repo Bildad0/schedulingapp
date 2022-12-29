@@ -18,19 +18,21 @@ export const time = [
   { id: "19", t: "19:00pm" },
 ];
 
+const headers = {
+  "content-Type": "application/json",
+  Accept: "application/json",
+};
+
 //register new user.
 export async function handleRegister(email, username, password, navigate) {
   try {
-    const result = await axios.post(
-      "http://localhost:4000/register",
-      { email, username, password },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    );
+    const result = await axios({
+      method: "post",
+      timeout: 8000,
+      url: "http://localhost:4000/register",
+      data: { email, username, password },
+      headers: headers,
+    });
     const data = result.json();
     if (data.error_message) {
       toast.error(data.error_message);
@@ -51,10 +53,10 @@ export async function handleLogin(username, password, navigate) {
       "http://localhost:4000/login",
       { username, password },
       {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+        headers: headers,
+      },
+      {
+        timeout: 8000,
       }
     );
     const data = result.json();
@@ -83,10 +85,10 @@ export async function createSchedule(selectedTimezone, schedule, navigate) {
         schedule,
       },
       {
-        headers: {
-          "content-Type": "application/json",
-          Accept: "application/json",
-        },
+        headers: headers,
+      },
+      {
+        timeout: 8000,
       }
     );
     navigate(`/profile/${localStorage.getItem("_id")}`);

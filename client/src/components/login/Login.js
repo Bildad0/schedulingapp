@@ -11,18 +11,18 @@ const Login = () => {
   const handleSubmit = (e) => {
     if (username.trim() && password.trim()) {
       e.preventDefault();
-      console.log({ username, password });
       handleLogin(username, password, navigate);
       setPassword("");
       setUsername("");
+      console.log({ username, password });
     }
   };
 
   return (
     <main className="login">
       <form className="login_form" onSubmit={handleSubmit}>
-        <h2 className="login_title"> Log into your account</h2>
         <div className="form_items">
+          <h2 className="login_title"> Log into your account</h2>
           <label htmlFor="username" className="label">
             User Name
           </label>
