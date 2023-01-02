@@ -10,7 +10,7 @@
 .login_form {
   margin-top: 10px;
   margin-left: 20%;
-  background-color: antiquewhite;
+  background-color: grey;
   margin-right: 20%;
   border: none;
   border-radius: 12px;
@@ -44,7 +44,7 @@
 .textinput {
   height: 25px;
   width: 90%;
-  border: 2px solid rgb(156, 146, 146);
+  border: none;
   border-radius: 5px;
 }
 
@@ -53,11 +53,18 @@
   margin-top: 20px;
   height: 30px;
   width: auto;
-  border: 2px solid rgb(156, 138, 138);
+  border: 2px solid white;
   border-radius: 5px;
   color: white;
   background-color: grey;
   font-weight: bold;
+}
+.signupButton:hover,
+.loginButton:hover {
+  border: inherit;
+  border-radius: inherit;
+  color: grey;
+  background-color: white;
 }
 
 .question {
@@ -68,4 +75,11 @@
 .link {
   color: burlywood;
   text-decoration: none;
+}
+.link:hover {
+  color: white;
+  text-decoration: inherit;
+  background-color: grey;
+}
+@media screen {
 }

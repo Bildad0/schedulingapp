@@ -42,7 +42,7 @@ export async function handleRegister(email, username, password, navigate) {
     }
   } catch (err) {
     console.log("Error received:", err.message);
-    toast.error(err);
+    toast.error(err.message);
   }
 }
 
