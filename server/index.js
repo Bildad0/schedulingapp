@@ -3,7 +3,24 @@ const app = express();
 const PORT = 4000;
 
 //array representing the data
-const database = [];
+const database = [
+  {
+    id: "1",
+    username: "Bildad",
+    password: "Achieng'9&",
+    email: "bildadowuor@gmail.com",
+    timezone: {},
+    schedule: [],
+  },
+  {
+    id: "2",
+    username: "Edwin",
+    password: "Achieng98",
+    email: "edwin@gmail.com",
+    timezone: {},
+    schedule: [],
+  },
+];
 
 //generate random string id
 const generateID = () => Math.random().toString(36).substring(2, 10);
