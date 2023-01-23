@@ -42,11 +42,13 @@ const Dashboard = () => {
     navigate("/");
   };
 
-  useEffect(() => {
-    if (!localStorage.getItem("_id")) {
-      navigate("/");
-    }
-  }, [navigate]);
+  // the login or signup process in not finishing up.
+
+  // useEffect(() => {
+  //   if (!localStorage.getItem("_id")) {
+  //     navigate("/");
+  //   }
+  // }, [navigate]);
 
   return (
     <div>

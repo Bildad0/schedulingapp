@@ -38,7 +38,9 @@ export async function handleRegister(email, username, password, navigate) {
       toast.error(data.error_message);
     } else {
       toast.success(data.message);
-      navigate("/");
+      localStorage.setItem("_id", data.data._id);
+      localStorage.setItem("_myEmail", data.data._email);
+      navigate("/dashboard");
     }
   } catch (err) {
     console.log("Error received:", err.message);
