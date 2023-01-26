@@ -1,6 +1,7 @@
-import { UserSchema as _UserSchema, model } from "mangoose";
+import mongoose from "mongoose";
+const { Schema } = mongoose;
 
-const UserSchema = new _UserSchema({
+const UserSchema = new Schema({
   email: {
     type: String,
     required: [true, "please provide an email"],
@@ -11,9 +12,13 @@ const UserSchema = new _UserSchema({
     required: [true, "please provide a password"],
     unique: false,
   },
-  username,
+  username: {
+    type: String,
+    required: [true, "please provide username"],
+    unique: [true, "username already exist"],
+  },
   timezone: {},
   schedule: [],
 });
 
-export default model.Users || model("Users", UserSchema);
+export default mongoose.model("Users", UserSchema);

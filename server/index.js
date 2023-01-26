@@ -1,13 +1,10 @@
 import express, { urlencoded } from "express";
-const app = express();
-const PORT = 4000;
-//const User = require("./DB/userModel");
 import dbConnect from "./DB/dbconnection.js";
-
-//const dbConnect = require("./DB/dbConnection");
-
+import * as User from "./DB/userModel.js";
 //password encryption
-//const bcrypt = require("bcrypt");
+import * as bcrypt from "bcrypt";
+const app = express();
+const PORT = 3000;
 
 dbConnect();
 
@@ -21,37 +18,37 @@ app.use((res) => {
   );
 });
 
-// app.post("/register", (req, res) => {
-//   bcrypt.hash(req.body.password, 10).then((hashedPassword) => {
-//     const user = new User({
-//       email: req.body.email,
-//       password: hashedPassword,
-//       username: req.body.username,
-//       timezone: {},
-//       schedule: [],
-//     });
-//     user
-//       .save()
-//       .then((result) => {
-//         res.status(201).send({
-//           message: "User created successfully",
-//           result,
-//         });
-//       })
-//       .catch((error) => {
-//         res.status(500).send({
-//           message: "Error creating user",
-//           error,
-//         });
-//       })
-//       .catch((e) => {
-//         res.status(500).send({
-//           message: "password was not hashed successfully",
-//           e,
-//         });
-//       });
-//   });
-// });
+app.post("/register", (req, res) => {
+  bcrypt.hash(req.body.password, 10).then((hashedPassword) => {
+    const user = new User({
+      email: req.body.email,
+      password: hashedPassword,
+      username: req.body.username,
+      timezone: {},
+      schedule: [],
+    });
+    user
+      .save()
+      .then((result) => {
+        res.status(201).send({
+          message: "User created successfully",
+          result,
+        });
+      })
+      .catch((error) => {
+        res.status(500).send({
+          message: "Error creating user",
+          error,
+        });
+      })
+      .catch((e) => {
+        res.status(500).send({
+          message: "password was not hashed successfully",
+          e,
+        });
+      });
+  });
+});
 
 //login user to the server
 app.post("/login", (req, res) => {
