@@ -18,6 +18,7 @@ app.use((res) => {
   );
 });
 
+//register user
 app.post("/register", (req, res) => {
   bcrypt.hash(req.body.password, 10).then((hashedPassword) => {
     const user = new User({
