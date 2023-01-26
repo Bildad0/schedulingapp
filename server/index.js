@@ -1,29 +1,15 @@
 import express, { urlencoded } from "express";
 const app = express();
 const PORT = 4000;
+//const User = require("./DB/userModel");
+import dbConnect from "./DB/dbconnection.js";
 
-//array representing the data
-const database = [
-  {
-    id: "1",
-    username: "Bildad",
-    password: "Achieng'9&",
-    email: "bildadowuor@gmail.com",
-    timezone: {},
-    schedule: [],
-  },
-  {
-    id: "2",
-    username: "Edwin",
-    password: "Achieng98",
-    email: "edwin@gmail.com",
-    timezone: {},
-    schedule: [],
-  },
-];
+//const dbConnect = require("./DB/dbConnection");
 
-//generate random string id
-const generateID = () => Math.random().toString(36).substring(2, 10);
+//password encryption
+//const bcrypt = require("bcrypt");
+
+dbConnect();
 
 app.use(urlencoded({ extended: true }));
 app.use(express.json());
@@ -35,37 +21,37 @@ app.use((res) => {
   );
 });
 
-app.post("/register", (req, res) => {
-  const { username, email, password } = req.body;
-  console.log(req.body);
-
-  //check if user exist
-  let result = database.filter(
-    (user) => user.email === email || user.username === username
-  );
-
-  //creates the user's data structure on the server
-  if (result.length === 0) {
-    database.push({
-      id: generateID(),
-      username,
-      password,
-      email,
-      timezone: {},
-      schedule: [],
-    });
-    return res.json({
-      message: "Account created succesfully!",
-      data: {
-        _id: result[0].id,
-        _username: result[0].username,
-        _email: result[0].email,
-        _timezone: result[0].timezone,
-      },
-    });
-  }
-  res.json({ error_message: "User already exists!" });
-});
+// app.post("/register", (req, res) => {
+//   bcrypt.hash(req.body.password, 10).then((hashedPassword) => {
+//     const user = new User({
+//       email: req.body.email,
+//       password: hashedPassword,
+//       username: req.body.username,
+//       timezone: {},
+//       schedule: [],
+//     });
+//     user
+//       .save()
+//       .then((result) => {
+//         res.status(201).send({
+//           message: "User created successfully",
+//           result,
+//         });
+//       })
+//       .catch((error) => {
+//         res.status(500).send({
+//           message: "Error creating user",
+//           error,
+//         });
+//       })
+//       .catch((e) => {
+//         res.status(500).send({
+//           message: "password was not hashed successfully",
+//           e,
+//         });
+//       });
+//   });
+// });
 
 //login user to the server
 app.post("/login", (req, res) => {
