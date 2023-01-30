@@ -19,7 +19,7 @@ app.use((res) => {
 });
 
 //register user
-app.post("/register", (req, res) => {
+app.post("api/v1.0/register", (req, res) => {
   bcrypt.hash(req.body.password, 10).then((hashedPassword) => {
     const user = new User({
       email: req.body.email,
@@ -52,7 +52,7 @@ app.post("/register", (req, res) => {
 });
 
 //login user to the server
-app.post("/login", (req, res) => {
+app.post("api/v1.0/login", (req, res) => {
   const { username, password } = req.body;
   let result = database.filter(
     (user) => user.username == username && user.password == password
@@ -70,7 +70,7 @@ app.post("/login", (req, res) => {
 });
 
 //create schedules in the server
-app.post("/schedule/create", (req, res) => {
+app.post("api/v1.0/schedule/create", (req, res) => {
   const { userId, timezone, schedule } = req.body;
   let result = database.filter((db) => db.id === userId);
   result[0].timezone = timezone;
@@ -79,7 +79,7 @@ app.post("/schedule/create", (req, res) => {
 });
 
 //getting schedules
-app.get("/schedules/:id", (req, res) => {});
+app.get("api/v1.0/schedules/:id", (req, res) => {});
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
