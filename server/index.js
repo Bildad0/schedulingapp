@@ -3,8 +3,10 @@ import dbConnect from "./DB/dbconnection.js";
 import * as User from "./DB/userModel.js";
 //password encryption
 import * as bcrypt from "bcrypt";
+const salt = bcrypt.genSalt();
+
 const app = express();
-const PORT = 3000;
+const PORT = 4000;
 
 dbConnect();
 
@@ -20,7 +22,7 @@ app.use((res) => {
 
 //register user
 app.post("api/v1.0/register", (req, res) => {
-  bcrypt.hash(req.body.password, 10).then((hashedPassword) => {
+  bcrypt.hash(req.body.password, salt).then((hashedPassword) => {
     const user = new User({
       email: req.body.email,
       password: hashedPassword,
@@ -29,7 +31,7 @@ app.post("api/v1.0/register", (req, res) => {
       schedule: [],
     });
     user
-      .save()
+      .push()
       .then((result) => {
         res.status(201).send({
           message: "User created successfully",
