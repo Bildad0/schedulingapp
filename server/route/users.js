@@ -1,18 +1,26 @@
 import express from "express";
-import userModel from "../models/userModel.js";
-import moment from "moment";
+import mongoose from "mongoose";
+import UserModel from "../models/userModel.js";
 const app = express();
 
+mongoose.set("strictQuery", true);
 //register user
-app.post("api/v1/register", async (req, res) => {
-  const user = new userModel(req.body);
-  console.log(moment);
-  try {
-    await user.save();
+
+app.post("api/v1/register", (req, res) => {
+  const user = new UserModel({
+    email: req.body.email,
+    password: req.body.password,
+    username: req.body.username,
+    timezone: req.body.timezone,
+  });
+  user.save((err, user) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error creating user");
+      return;
+    }
     res.status(400).send(user);
-  } catch (err) {
-    res.status(500).send(err);
-  }
+  });
 });
 
 //login user to the server
