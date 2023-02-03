@@ -1,7 +1,7 @@
 import express, { urlencoded } from "express";
 import dbConnect from "./Database/dbconnection.js";
 import bodyParser from "body-parser";
-import Router from "./route/users.js";
+import User from "./route/users.js";
 const app = express();
 const PORT = 4000;
 
@@ -17,7 +17,7 @@ app.use((res) => {
     "Origin, X-Requested-With, Content-Type, Accept"
   );
 });
-app.use(Router);
+app.use("/user", User);
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

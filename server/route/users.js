@@ -1,12 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
 import UserModel from "../models/userModel.js";
-const app = express();
+const Router = express.Router();
 
 mongoose.set("strictQuery", true);
 //register user
 
-app.post("api/v1/register", (req, res) => {
+Router.post("/register", (req, res) => {
   const user = new UserModel({
     email: req.body.email,
     password: req.body.password,
@@ -24,7 +24,7 @@ app.post("api/v1/register", (req, res) => {
 });
 
 //login user to the server
-app.post("api/v1/login", (req, res) => {
+Router.post("/login", (req, res) => {
   const { username, password } = req.body;
   let result = database.filter(
     (user) => user.username == username && user.password == password
@@ -41,4 +41,4 @@ app.post("api/v1/login", (req, res) => {
   });
 });
 
-export default app;
+export default Router;
