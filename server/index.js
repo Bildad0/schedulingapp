@@ -1,10 +1,7 @@
 import express, { urlencoded } from "express";
-import dbConnect from "./DB/dbconnection.js";
-import * as User from "./DB/userModel.js";
-//password encryption
-import * as bcrypt from "bcrypt";
-const salt = bcrypt.genSalt();
+import dbConnect from "./Database/dbconnection.js";
 
+import Router from "./route/users.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -12,6 +9,7 @@ dbConnect();
 
 app.use(urlencoded({ extended: true }));
 app.use(express.json());
+
 app.use((res) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -84,6 +82,7 @@ app.post("api/v1.0/schedule/create", (req, res) => {
 
 //getting schedules
 app.get("api/v1.0/schedules/:id", (req, res) => {});
+app.use(Router);
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
