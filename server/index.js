@@ -17,6 +17,9 @@ app.use((res) => {
     "Origin, X-Requested-With, Content-Type, Accept"
   );
 });
+
+app.use("api/v1/user", Router);
+app.use("api/v1/schedule", Router);
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });

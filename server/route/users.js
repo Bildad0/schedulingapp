@@ -1,14 +1,14 @@
 import express from "express";
-import userModel from "../models/userModel.js";
+import User from "../models/userModel.js";
 import moment from "moment";
-const app = express();
+const Router = express();
 
 //register user
-app.post("api/v1/register", async (req, res) => {
-  const user = new userModel(req.body);
+Router.post("/register", async (req, res) => {
+  const user = new User(req.body);
   console.log(moment);
   try {
-    await user.save();
+    await user.collection("user").save();
     res.status(400).send(user);
   } catch (err) {
     res.status(500).send(err);
@@ -16,7 +16,7 @@ app.post("api/v1/register", async (req, res) => {
 });
 
 //login user to the server
-app.post("api/v1/login", (req, res) => {
+Router.post("/login", (req, res) => {
   const { username, password } = req.body;
   let result = database.filter(
     (user) => user.username == username && user.password == password
@@ -33,4 +33,12 @@ app.post("api/v1/login", (req, res) => {
   });
 });
 
-export default app;
+Router.get("/:id", (req, res) => {
+  const statusOk = res.status(400);
+  if (!statusOk) {
+    res.send({ message: "No such user" });
+  } else {
+    res.send({ message: "User found", data: {} });
+  }
+});
+export default Router;
