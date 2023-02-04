@@ -6,7 +6,7 @@ import * as bcrypt from "bcrypt";
 const salt = bcrypt.genSalt();
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 3000;
 
 dbConnect();
 
@@ -21,7 +21,9 @@ app.use((res) => {
 });
 
 //register user
-app.post("api/v1.0/register", (req, res) => {
+app.put("api/v1.0/register", (req, res) => {
+  res.send({ message: "Hi this is working" });
+
   bcrypt.hash(req.body.password, salt).then((hashedPassword) => {
     const user = new User({
       email: req.body.email,
@@ -35,19 +37,19 @@ app.post("api/v1.0/register", (req, res) => {
       .then((result) => {
         res.status(201).send({
           message: "User created successfully",
-          result,
+          body: result,
         });
       })
       .catch((error) => {
         res.status(500).send({
           message: "Error creating user",
-          error,
+          body: error,
         });
       })
       .catch((e) => {
         res.status(500).send({
           message: "password was not hashed successfully",
-          e,
+          body: e,
         });
       });
   });
