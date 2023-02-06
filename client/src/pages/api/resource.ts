@@ -1,5 +1,4 @@
-import axios from "axios";
-import { toast } from "react-toastify";
+import axios from 'axios'
 
 export const time = [
   { id: "null", t: "Select" },
@@ -24,7 +23,7 @@ const headers = {
 };
 
 //register new user.
-export async function handleRegister(email, username, password, navigate) {
+export async function handleRegister(email: string, username: string, password:string, navigate: (arg0: string) => void) {
   try {
     const result = await axios({
       method: "post",
@@ -33,51 +32,48 @@ export async function handleRegister(email, username, password, navigate) {
       data: { email, username, password },
       headers: headers,
     });
-    const data = result.json();
+    const data = result.data;
     if (data.error_message) {
-      toast.error(data.error_message);
+      console.error(data.error_message);
     } else {
-      toast.success(data.message);
+      console.log(data.message);
       localStorage.setItem("_id", data.data._id);
       localStorage.setItem("_myEmail", data.data._email);
       navigate("/dashboard");
     }
-  } catch (err) {
+  } catch (err:any) {
     console.log("Error received:", err.message);
-    toast.error(err.message);
+    console.error(err.message);
   }
 }
 
 //login user
-export async function handleLogin(username, password, navigate) {
+export async function handleLogin(username: any, password: any, navigate: (arg0: string) => void) {
   try {
     const result = await axios.post(
       "http://localhost:4000/login",
       { username, password },
       {
         headers: headers,
-      },
-      {
-        timeout: 8000,
       }
     );
-    const data = result.json();
+    const data = result.data;
     if (data.error_message) {
-      toast.error(data.error_message);
+      console.error(data.error_message);
     } else {
-      toast.success(data.message);
+      console.log(data.message);
       localStorage.setItem("_id", data.data._id);
       localStorage.setItem("_myEmail", data.data._email);
       navigate("/dashboard");
     }
-  } catch (err) {
+  } catch (err:any) {
     console.log("Error received:", err.message);
-    toast.error(err.message);
+    console.error(err.message);
   }
 }
 
 //create schedules
-export async function createSchedule(selectedTimezone, schedule, navigate) {
+export async function createSchedule(selectedTimezone: any, schedule: any, navigate: (arg0: string) => void) {
   try {
     await axios.post(
       "http://localhost:4000/schedule/create",
@@ -88,14 +84,11 @@ export async function createSchedule(selectedTimezone, schedule, navigate) {
       },
       {
         headers: headers,
-      },
-      {
-        timeout: 8000,
       }
     );
     navigate(`/profile/${localStorage.getItem("_id")}`);
-  } catch (err) {
+  } catch (err:any) {
     console.log("Error Received:", err.message);
-    toast.error(err.message);
+    console.error("Profile creation Error: " ,err.message);
   }
 }
