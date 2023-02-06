@@ -73,7 +73,7 @@ export async function handleLogin(username: any, password: any, navigate: (arg0:
 }
 
 //create schedules
-export async function createSchedule(selectedTimezone: any, schedule: any, navigate: (arg0: string) => void) {
+export async function createSchedule(selectedTimezone: any, schedule: any, navigate:any) {
   try {
     await axios.post(
       "http://localhost:4000/schedule/create",
