@@ -1,27 +1,13 @@
 import express from "express";
 import mongoose from "mongoose";
-import UserModel from "../models/userModel.js";
 const Router = express.Router();
+import { catchErrors } from "../handlers/errorHandlers.js";
+import * as controller from "../controllers/userController.js";
 
 mongoose.set("strictQuery", true);
 //register user
 
-Router.post("/register", (req, res) => {
-  const user = new UserModel({
-    email: req.body.email,
-    password: req.body.password,
-    username: req.body.username,
-    timezone: req.body.timezone,
-  });
-  user.save((err, user) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send("Error creating user");
-      return;
-    }
-    res.status(400).send(user);
-  });
-});
+Router.post("/register", catchErrors(controller.register));
 
 //login user to the server
 Router.post("/login", (req, res) => {

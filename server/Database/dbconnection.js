@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import * as dotenv from "dotenv";
+import userSchema from "../models/userModel.js";
 dotenv.config();
 
 async function dbConnect() {
@@ -12,6 +13,8 @@ async function dbConnect() {
   db.once("open", function () {
     console.log("Connected to MongoDB");
   });
+
+  userSchema;
 }
 
 export default dbConnect;
