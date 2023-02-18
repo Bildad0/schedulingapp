@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
 import userSchema from "../models/userModel.js";
 import sha256 from "js-sha256";
 
-export async function register(req, res) {
+async function register(req, res) {
   const { username, email, password } = req.body;
   const emailRegex = /[@gmail.com|@yahoo.com|@hotmail.com|@live.com]$/;
   if (!emailRegex.test(email))
@@ -17,3 +16,5 @@ export async function register(req, res) {
   await user.save();
   res.json({ message: "User [" + username + "]registered successfully" });
 }
+
+export default register;
