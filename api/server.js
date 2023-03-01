@@ -1,10 +1,12 @@
-import express from "express";
-import * as dotenv from "dotenv";
-dotenv.config();
-import router from "./route/auth.js";
-import cors from "cors";
-import mongoose from "mongoose";
+const express = require("express");
+const router = require("./route/auth");
+const cors = require("cors");
+const mongoose = require("mongoose");
 const app = express();
+
+require("dotenv").config();
+app.use(cors());
+app.use(express.json());
 
 mongoose.set("strictQuery", true);
 mongoose
@@ -20,9 +22,4 @@ mongoose
     console.log(error);
   });
 
-app.use(cors());
-app.use(express.json());
-
 app.use("/api/auth", router);
-
-export default app;
