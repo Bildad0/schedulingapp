@@ -1,10 +1,11 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require("uuid");
 const jtw = require("jsonwebtoken");
 const User = require("../models/userModel");
-const router = express.Router();
+const authRouter = express.Router();
 
-router.post("/register", async (req, res) => {
+authRouter.post("/register", async (req, res) => {
   const { email, password, username, timezone } = req.body;
 
   try {
@@ -19,6 +20,7 @@ router.post("/register", async (req, res) => {
 
     //create user
     const newUser = User({
+      id: uuidv4(),
       email,
       password: hashedPassword,
       username,
@@ -33,7 +35,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+authRouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = User.findOne({ email: email });
@@ -63,4 +65,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = authRouter;
