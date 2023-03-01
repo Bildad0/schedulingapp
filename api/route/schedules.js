@@ -1,19 +1,41 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const router = express.Router();
+const { v4: uuidv4 } = require("uuid");
+const Schedule = require("../models/scheduleModel");
+const User = require("../models/userModel");
+const scheduleRouter = express.Router();
 
 //create schedules in the server
-
-router.get("/", (req, res) => {
-  let result = database.filter((db) => db.id === userId);
-  result[0].timezone = timezone;
-  result[0].schedule = schedule;
-  res.json({ message: "Ok" });
+scheduleRouter.post("/add", async (req, res) => {
+  const { id, userId, timezone, schedule } = req.body;
+  try {
+    const newSchedule = Schedule({
+      id: uuidv4(),
+      userId,
+      timezone,
+      schedule,
+    });
+    const savedSchedule = await newSchedule.save();
+    res
+      .status(200)
+      .json({ message: "Schedule created succesfully", data: savedSchedule });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
 });
 
-//getting schedules
-router.post("/create", (req, res) => {
-  const { userId, timezone, schedule } = req.body;
-  //add schedule model
-  const scheduleExist = await;
+//get all schedules
+scheduleRouter.get("/", async (req, res) => {
+  const query = req.query.new;
+  try {
+    const schedules = query
+      ? await Schedule.find().sort({ _id: -1 })
+      : await Schedule.find();
+  } catch (error) {
+    res.status(500).json({ message: "No schedules available create one" });
+  }
 });
+
+//get schedule by id
+scheduleRouter.get("/:id", async (req, res) => {});
+
+module.exports = scheduleRouter;

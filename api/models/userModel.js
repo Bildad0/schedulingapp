@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: "Password is required" },
     username: { type: String, required: "Name is required" },
     timezone: { type: String },
-    schedule: [],
+    schedule: { type: [] },
   },
   { timestamps: true }
 );

@@ -59,7 +59,15 @@ authRouter.post("/login", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-    res.status(200).json({ token, schedule: user.schedule });
+    res.status(200).json({
+      token,
+      data: {
+        _username: user.username,
+        _email: user.email,
+        _schedule: user.schedule,
+        _timezone: user.timezone,
+      },
+    });
   } catch (error) {
     res.status(500).json(error.message);
   }

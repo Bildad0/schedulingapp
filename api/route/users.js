@@ -7,13 +7,13 @@ mongoose.set("strictQuery", true);
 //get user
 
 userRouter.get("/profile/:id", async (req, res) => {
+  const user = await User.findById(req.params.id)
+    .populate("email")
+    .populate("username")
+    .populate("timezone")
+    .populate("schedule");
   try {
-    const user = await User.findById({ _id: req.params.id })
-      .populate("email")
-      .populate("username")
-      .populate("timezone")
-      .populate("schedule");
-    if (user != null) {
+    if (user) {
       res.status(200).json(user);
     } else {
       res.status(404).json({ message: "User not found" });
@@ -23,7 +23,7 @@ userRouter.get("/profile/:id", async (req, res) => {
   }
 });
 
-userRouter.get("/all", async (req, res) => {
+userRouter.get("/", async (req, res) => {
   const query = req.query.new;
   try {
     const users = query
