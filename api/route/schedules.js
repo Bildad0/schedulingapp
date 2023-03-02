@@ -28,8 +28,9 @@ scheduleRouter.get("/", async (req, res) => {
   const query = req.query.new;
   try {
     const schedules = query
-      ? await Schedule.find().sort({ _id: -1 })
+      ? await Schedule.find().limit(10)
       : await Schedule.find();
+    res.status(200).json({ schedules });
   } catch (error) {
     res.status(500).json({ message: "No schedules available create one" });
   }
