@@ -4,22 +4,23 @@ const userRouter = express.Router();
 const User = require("../models/userModel");
 
 mongoose.set("strictQuery", true);
-//get user
 
-userRouter.get("/profile/", async (req, res) => {
+//get user by id
+userRouter.get("/profile/:id", async (req, res) => {
   const userId = req.params.id;
   try {
     const user = await User.findOne({ id: userId });
     if (user) {
-      res.status(200).json({ user });
+      res.status(200).json(user);
     } else {
-      res.status(404).json({ message: "User not found" });
+      res.status(404).json({ message: "no user with such id" });
     }
   } catch (error) {
     res.status(500).json(error.message);
   }
 });
 
+//get all users
 userRouter.get("/", async (req, res) => {
   const query = req.query.new;
   try {
@@ -30,6 +31,6 @@ userRouter.get("/", async (req, res) => {
   }
 });
 
-userRouter.delete("delete/:id", async (req, res) => {});
+userRouter.delete("/delete/:id", async (req, res) => {});
 
 module.exports = userRouter;

@@ -1,7 +1,6 @@
 const express = require("express");
 const { v4: uuidv4 } = require("uuid");
 const Schedule = require("../models/scheduleModel");
-const User = require("../models/userModel");
 const scheduleRouter = express.Router();
 
 //create schedules in the server
@@ -37,6 +36,20 @@ scheduleRouter.get("/", async (req, res) => {
 });
 
 //get schedule by id
-scheduleRouter.get("/:id", async (req, res) => {});
+scheduleRouter.get("/:id", async (req, res) => {
+  const scheduleId = req.params.id;
+  try {
+    const schedule = await Schedule.findOne({ id: scheduleId });
+    if (schedule) {
+      res.status(200).json(schedule);
+    } else {
+      res.status(404).json({ message: "No schedule with such id" });
+    }
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+});
 
+//delete schedule
+scheduleRouter.delete("/delete/:id", async (req, res) => {});
 module.exports = scheduleRouter;
