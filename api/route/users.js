@@ -22,15 +22,28 @@ userRouter.get("/profile/:id", async (req, res) => {
 
 //get all users
 userRouter.get("/", async (req, res) => {
-  const query = req.query.new;
   try {
-    const users = query ? await User.find().limit(10) : await User.find();
-    res.status(200).json({ users });
+    const users = await User.find().limit(100);
+    if (users[0] == null) {
+      res.status(404).json({ message: "No Users" });
+    } else {
+      res.status(200).json({ users });
+    }
   } catch (error) {
-    res.status(500).json({ message: "No Users" });
+    res.status(500).json(error.message);
   }
 });
 
-userRouter.delete("/delete/:id", async (req, res) => {});
+userRouter.delete("/delete/:id", async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const userToDelete = await User.findOneAndDelete({ id: userId });
+    res.status(200).json({
+      message: "User " + userToDelete.username + " deleted successfuly",
+    });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+});
 
 module.exports = userRouter;

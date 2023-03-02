@@ -41,7 +41,7 @@ scheduleRouter.get("/:id", async (req, res) => {
   try {
     const schedule = await Schedule.findOne({ id: scheduleId });
     if (schedule) {
-      res.status(200).json(schedule);
+      res.status(200).json({ Shedules: schedule.schedule });
     } else {
       res.status(404).json({ message: "No schedule with such id" });
     }
@@ -50,6 +50,18 @@ scheduleRouter.get("/:id", async (req, res) => {
   }
 });
 
-//delete schedule
-scheduleRouter.delete("/delete/:id", async (req, res) => {});
+//delete all schedules
+scheduleRouter.delete("/delete/:id", async (req, res) => {
+  const schedulId = req.params.id;
+  try {
+    const scheduleToDelete = await Schedule.findOneAndDelete({
+      id: schedulId,
+    });
+    res.status(200).json({
+      message: "Schedules " + scheduleToDelete + " deleted successfuly",
+    });
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+});
 module.exports = scheduleRouter;
