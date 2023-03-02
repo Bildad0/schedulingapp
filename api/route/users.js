@@ -3,8 +3,6 @@ const mongoose = require("mongoose");
 const userRouter = express.Router();
 const User = require("../models/userModel");
 
-mongoose.set("strictQuery", true);
-
 //get user by id
 userRouter.get("/profile/:id", async (req, res) => {
   const userId = req.params.id;
@@ -15,6 +13,21 @@ userRouter.get("/profile/:id", async (req, res) => {
     } else {
       res.status(404).json({ message: "no user with such id" });
     }
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+});
+
+//edit user
+userRouter.put("/edit/:id", async (req, res) => {
+  try {
+    const updateUser = await User.findByIdAndUpdate(req.params.id, {
+      $set: req.body,
+    });
+
+    res.status(200).json({
+      message: "User " + updateUser.username + " updated successfuly",
+    });
   } catch (error) {
     res.status(500).json(error.message);
   }
@@ -34,6 +47,7 @@ userRouter.get("/", async (req, res) => {
   }
 });
 
+//delete a user
 userRouter.delete("/delete/:id", async (req, res) => {
   const userId = req.params.id;
   try {

@@ -58,7 +58,8 @@ scheduleRouter.delete("/delete/:id", async (req, res) => {
       id: schedulId,
     });
     res.status(200).json({
-      message: "Schedules " + scheduleToDelete + " deleted successfuly",
+      message:
+        "Schedules " + scheduleToDelete.schedule + " were deleted successfuly",
     });
   } catch (error) {
     res.status(500).json(error.message);
