@@ -24,14 +24,15 @@ scheduleRouter.post("/add", async (req, res) => {
 
 //get all schedules
 scheduleRouter.get("/", async (req, res) => {
-  const query = req.query.new;
   try {
-    const schedules = query
-      ? await Schedule.find().limit(10)
-      : await Schedule.find();
-    res.status(200).json({ schedules });
+    const schedules = await Schedule.find();
+    if (schedules[0] != null) {
+      res.status(200).json({ schedules });
+    } else {
+      res.status(404).json({ message: "No schedules available" });
+    }
   } catch (error) {
-    res.status(500).json({ message: "No schedules available create one" });
+    res.status(500).json(error.message);
   }
 });
 

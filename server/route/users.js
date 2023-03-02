@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const userRouter = express.Router();
 const User = require("../models/userModel");
 
@@ -11,7 +10,7 @@ userRouter.get("/profile/:id", async (req, res) => {
     if (user) {
       res.status(200).json(user);
     } else {
-      res.status(404).json({ message: "no user with such id" });
+      res.status(404).json({ message: "User is cannot be found" });
     }
   } catch (error) {
     res.status(500).json(error.message);
