@@ -36,12 +36,12 @@ authRouter.post("/register", async (req, res) => {
 
 authRouter.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = User.findOne({ email: email });
-    if (!user) {
-      res.status(404).json({ error: "User not found" });
+    const { input, password } = req.body;
+    const userByEmail = User.findOne({ email: input });
+    const userByUsername = User.findOne({ username: input });
+    if (!userByEmail) {
+      if (!userByUsername) res.status(404).json({ error: "User not found" });
     }
-
     const checkPasswordMatch = bcrypt.compare(
       password,
       User.findOne({ password }).toString()
@@ -49,12 +49,13 @@ authRouter.post("/login", async (req, res) => {
     if (!checkPasswordMatch) {
       res.status(401).json({ error: "Incorrect password." });
     }
+
     const token = jtw.sign(
       {
-        id: user._id,
-        schedule: user.schedule,
-        username: user.username,
-        timezone: user.timezone,
+        id: userByEmail.id || userByUsername.id,
+        schedule: userByEmail.schedule || userByUsername.schedule,
+        username: userByEmail.username || userByUsername.username,
+        timezone: userByEmail.timezone || userByUsername.timezone,
       },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
