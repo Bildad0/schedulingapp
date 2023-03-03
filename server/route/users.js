@@ -33,7 +33,7 @@ userRouter.put("/edit/:id", async (req, res) => {
 });
 
 //get all users for admin
-userRouter.get("/", async (res) => {
+userRouter.get("/", async (req, res) => {
   try {
     const users = await User.find().limit(100);
     if (users[0] == null) {

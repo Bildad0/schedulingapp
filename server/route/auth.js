@@ -12,9 +12,10 @@ authRouter.post("/register", async (req, res) => {
     const userExistWithEmail = await User.findOne({ email: email });
     const userExistWithUserName = await User.findOne({ username: username });
     if (userExistWithEmail) {
-      res.status(422).json({ message: "Email already exists" });
-    } else if (userExistWithUserName) {
-      res.status(422).json({ message: "Username already exists" });
+      return res.status(422).json({ message: "Email already exists" });
+    }
+    if (userExistWithUserName) {
+      return res.status(422).json({ message: "User name already exist" });
     }
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -40,14 +41,15 @@ authRouter.post("/login", async (req, res) => {
     const userByEmail = User.findOne({ email: input });
     const userByUsername = User.findOne({ username: input });
     if (!userByEmail) {
-      if (!userByUsername) res.status(404).json({ error: "User not found" });
+      if (!userByUsername)
+        return res.status(404).json({ error: "User not found" });
     }
     const checkPasswordMatch = bcrypt.compare(
       password,
       User.findOne({ password }).toString()
     );
     if (!checkPasswordMatch) {
-      res.status(401).json({ error: "Incorrect password." });
+      return res.status(401).json({ error: "Incorrect password." });
     }
 
     const token = jtw.sign(
