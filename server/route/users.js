@@ -32,14 +32,30 @@ userRouter.put("/edit/:id", async (req, res) => {
   }
 });
 
-//get all users
-userRouter.get("/", async (req, res) => {
+//get all users for admin
+userRouter.get("/", async (res) => {
   try {
     const users = await User.find().limit(100);
     if (users[0] == null) {
       res.status(404).json({ message: "No Users" });
     } else {
       res.status(200).json({ users });
+    }
+  } catch (error) {
+    res.status(500).json(error.message);
+  }
+});
+
+//get user by username
+userRouter.get("/:username", async (req, res) => {
+  const userName = req.params.username;
+  try {
+    const user = User.findOne({ username: userName });
+
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({ message: "No user with user name " + userName });
     }
   } catch (error) {
     res.status(500).json(error.message);

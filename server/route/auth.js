@@ -9,16 +9,15 @@ authRouter.post("/register", async (req, res) => {
   const { email, password, username, timezone } = req.body;
 
   try {
-    const userExist = await User.findOne({ email: email });
-    if (userExist) {
-      return res.status(422).json({ error: "Email already exists" });
+    const userExistWithEmail = await User.findOne({ email: email });
+    const userExistWithUserName = await User.findOne({ username: username });
+    if (userExistWithEmail) {
+      res.status(422).json({ message: "Email already exists" });
+    } else if (userExistWithUserName) {
+      res.status(422).json({ message: "Username already exists" });
     }
-
-    //hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
-    //create user
     const newUser = User({
       id: uuidv4(),
       email,
