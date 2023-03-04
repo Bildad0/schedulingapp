@@ -36,16 +36,20 @@ export default function Home() {
         <div className={styles.main_body}>
           <div className={styles.main_body_info}>
             <div className={styles.main_body_info_content}>
-              <p className={styles.catch_phrase}>SIMPLIFY YOUR SCHEDULES</p>
-              <h1 className={styles.main_body_info_title}>Welcome to My Scheduler</h1>
+              <p className={styles.catch_phrase}>SIMPLIFY YOUR SCHEDULING</p>
+              <h1 className={styles.main_body_info_title}>Automate <br />Your Appointments</h1>
               <p className={styles.main_body_info_description}>
-                A web app used to book appointments and schedule activities.
+                If you diligently track time, you’re also much more aware of how you <br />
+                spend the given hours in a day and set priorities. You can use project <br />
+                time tracking tools such as this to make sure tracking time is intuitive,<br/>
+                hassle-free, and actually useful.
               </p>
           </div>
           </div>
-          <div className={styles.svg}> <Image src="./Tomorrow.svg" alt={'Calender svg'} width="64" height="64" /></div>
-       </div>
+          <div className={styles.svg}> <Image src="./Tomorrow.svg" alt={'Calender svg'} width="90" height="90" /></div>
+        </div>
       </main>
+      <div className={styles.footer}></div>
     </>
   )
 }
