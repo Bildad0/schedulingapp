@@ -137,16 +137,74 @@
   font-weight: 100;
   font-size: medium;
   font-style: italic;
+  color: #063970;
 }
 .svg {
-  width: 100px;
-  height: 100px;
+  width: 40em;
+  height: 20em;
   padding-left: 30px;
+  padding-bottom: 10px;
+}
+.image {
+  margin-bottom: 10px;
+  margin-left: 0;
+  width: 90%;
+  height: 100%;
 }
 .footer {
   background: linear-gradient(to bottom, #154c79, #063970);
   height: 50vh;
 }
+.footer_container {
+  display: flex;
+  flex-direction: row;
+  margin-left: 20px;
+  justify-content: space-between;
+  margin-right: 20px;
+  height: 90%;
+}
+
+.about_app,
+.about_developer,
+.testimonials {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  text-overflow: wrap;
+  text-align: left;
+  padding: 30px;
+}
+.about_app h1,
+.about_developer h1,
+.testimonials h1 {
+  align-self: self-start;
+  font-weight: 100;
+  font-family: cursive;
+  font-size: 30px;
+}
+
+.footer_bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.copyright {
+  text-align: center;
+  color: grey;
+  font-weight: bolder;
+  font-size: large;
+  font-family: "Times New Roman", Times, serif;
+}
+.my_slogan {
+  text-align: left;
+  color: grey;
+  font-weight: bolder;
+  font-size: large;
+  font-family: "Times New Roman", Times, serif;
+}
+
 /* Mobile */
 @media (max-width: 700px) {
 }

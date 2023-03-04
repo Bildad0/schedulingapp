@@ -37,7 +37,7 @@ export default function Home() {
           <div className={styles.main_body_info}>
             <div className={styles.main_body_info_content}>
               <p className={styles.catch_phrase}>SIMPLIFY YOUR SCHEDULING</p>
-              <h1 className={styles.main_body_info_title}>Automate <br />Your Appointments</h1>
+              <h1 className={styles.main_body_info_title}>Automate <br />Your Appointments.</h1>
               <p className={styles.main_body_info_description}>
                 If you diligently track time, you’re also much more aware of how you <br />
                 spend the given hours in a day and set priorities. You can use project <br />
@@ -46,10 +46,35 @@ export default function Home() {
               </p>
           </div>
           </div>
-          <div className={styles.svg}> <Image src="./Tomorrow.svg" alt={'Calender svg'} width="90" height="90" /></div>
+          <div className={styles.svg}> <Image src="/calendar.jpg" alt={'Calender svg'} width="500" height="500" className={styles.image }/></div>
         </div>
       </main>
-      <div className={styles.footer}></div>
+      <div className={styles.footer}>
+        <div className={styles.footer_container}>
+          <div className={styles.about_app}>
+            <h1>About App</h1>
+            <p></p>
+          </div>
+          <div className={styles.about_developer}>
+            <h1>Our Team</h1>
+            <p>We are a team of software developers <br />
+              dedicated to deliver quality Mobile and web applications <br />
+              to our esteamed customers
+            </p>
+          </div>
+          <div className={styles.testimonials}><h1>Usefull Links</h1>
+            <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className={styles.footer_bottom}>
+      <p className={styles.my_slogan}>Made in Africa</p>
+        <p className={styles.copyright}>© 2023 The Rookies Co. All rights reserved.</p>
+        </div>
     </>
   )
 }
