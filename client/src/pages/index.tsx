@@ -1,37 +1,21 @@
-import Head from 'next/head'
+import Header from '@/../components/Header/header'
+import NavBar from '@/../components/Header/navbar'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
+import { useRouter } from 'next/router'
 
 
 export default function Home() {
+  const router = useRouter()
+
+  const onSignupButtonClick = (e:any) => {
+    e.preventDefault()
+    router.push('/auth/signup');
+}
   return (
     <>
-      <Head>
-        <title>My Scheduler</title>
-        <meta name="description" content="A web app used to book appointments and schedule activities." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="calendar.png" />
-      </Head>
-      
-      <nav className={styles.nav_bar}>
-          <div className={styles.nav_bar_content}>
-            <h1 className={styles.title}>My Scheduler</h1>
-            <div className={styles.navigation}>
-              <ul className={styles.navigation_list}>
-                <li>Home</li>
-                <li>Testimonials</li>
-                <li>FAQs</li>
-                <li>Contact us</li>
-              </ul>
-            </div>
-          </div>
-          <div className={styles.auth}>
-              <ul className={styles.auth_list}>
-                <li className={styles.signup}>SIGN UP</li>
-                <li className={styles.login}>LOGIN</li>
-              </ul>
-            </div>
-        </nav>
+      <Header/>      
+   <NavBar/>
 
       <main className={styles.main}>        
         <div className={styles.main_body}>
@@ -40,11 +24,11 @@ export default function Home() {
               <p className={styles.catch_phrase}>SIMPLIFY YOUR SCHEDULING</p>
               <h1 className={styles.main_body_info_title}>Automate <br />Your Appointments.</h1>
               <p className={styles.main_body_info_description}>
-                If you diligently track time, you’re also much more aware of how you spend <br />
+               <q>If you diligently track time, you’re also much more aware of how you spend <br />
                 the given hours in a day and set priorities. You can use project time tracking  <br />
-                tools such as My Scheduler to make sure tracking time is intuitive,hassle-free, and actually useful.
+                tools such as My Scheduler to make sure tracking time is intuitive,hassle-free, and actually useful.</q> -Unknown.
               </p>
-              <button className={styles.trial_button}><h1>Start Free Trial</h1></button>
+              <button className={styles.trial_button} onClick={onSignupButtonClick }><h1>Start Free Trial</h1></button>
           </div>
           </div>
           <div className={styles.svg}>

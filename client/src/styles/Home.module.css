@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: left;
   padding: 1rem;
-  min-height: 90vh;
+  min-height: 100vh;
 }
 
 .nav_bar {
@@ -177,10 +177,11 @@
   height: 100%;
 }
 .footer {
+  margin-top: -30px;
   display: flex;
   flex-direction: column;
   background: linear-gradient(to bottom, #154c79, #063970);
-  height: 50vh;
+  height: 60vh;
   align-items: center;
 }
 .footer p a {
