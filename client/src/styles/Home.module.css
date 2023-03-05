@@ -83,7 +83,7 @@
 
 .auth_list li:hover {
   border: 2px solid green;
-  border-radius: 5%;
+  border-radius: 5px;
   padding: 5px;
 }
 
@@ -103,7 +103,7 @@
 
 .main_body {
   margin-top: 5em;
-  margin-left: 10em;
+  margin-left: 5em;
   display: flex;
   flex-direction: row;
 }
@@ -139,8 +139,19 @@
   font-style: italic;
   color: #063970;
 }
+
+.trial_button {
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+.trial_button h1 {
+  padding: 10px;
+}
+
 .svg {
-  width: 40em;
+  width: 50em;
   height: 20em;
   padding-left: 30px;
   padding-bottom: 10px;
@@ -204,7 +215,33 @@
   font-size: large;
   font-family: "Times New Roman", Times, serif;
 }
+.my_slogan span {
+  color: red;
+  height: 10px;
+  width: 10px;
+}
+.about_developer h1,
+.our_location h1,
+.testimonials h1 {
+  font-weight: bolder;
+}
+.about_developer p,
+.our_location p,
+.testimonials ul li {
+  font-weight: 100;
+  margin-top: 10px;
+  font-style: oblique;
+}
 
+.our_location p a:hover {
+  color: red;
+}
+.testimonials ul {
+  list-style-type: none;
+}
+.testimonials ul li a:hover {
+  text-decoration: underline;
+}
 /* Mobile */
 @media (max-width: 700px) {
 }
