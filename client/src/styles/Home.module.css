@@ -9,14 +9,14 @@
 .nav_bar {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-
-  border-radius: var(--border-radius);
+  position: sticky;
+  position: -webkit-sticky;
   background: white;
-  border: 1px solid rgba(var(--card-border-rgb), 0);
   transition: background 200ms, border 200ms;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  height: 6em;
+  height: 4em;
 }
 
 .nav_bar_content {
@@ -25,7 +25,6 @@
   align-items: center;
 }
 
-.auth_list,
 .navigation_list {
   display: flex;
   flex-direction: row;
@@ -33,7 +32,16 @@
   margin-left: 21em;
   color: rgb(4, 4, 63);
 }
-
+.auth_list {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  color: rgb(4, 4, 63);
+}
+.auth {
+  justify-content: space-evenly;
+  margin-right: 10px;
+}
 .auth_list li,
 .navigation_list li {
   margin-right: 1em;
@@ -77,8 +85,7 @@
 }
 
 .navigation_list li:hover {
-  text-decoration: 2px solid underline;
-  text-decoration-color: green;
+  color: green;
 }
 
 .auth_list li:hover {
@@ -103,7 +110,7 @@
 
 .main_body {
   margin-top: 5em;
-  margin-left: 5em;
+  margin-left: 3em;
   display: flex;
   flex-direction: row;
 }
@@ -146,6 +153,13 @@
   border: none;
   border-radius: 5px;
 }
+.trial_button:hover {
+  background-color: white;
+  color: green;
+  border: 2px solid grey;
+  border-radius: 5px;
+}
+
 .trial_button h1 {
   padding: 10px;
 }
@@ -163,15 +177,23 @@
   height: 100%;
 }
 .footer {
+  display: flex;
+  flex-direction: column;
   background: linear-gradient(to bottom, #154c79, #063970);
   height: 50vh;
+  align-items: center;
+}
+.footer p a {
+  color: white;
+  text-align: center;
+}
+.footer p a:hover {
+  text-decoration: underline;
 }
 .footer_container {
   display: flex;
   flex-direction: row;
-  margin-left: 20px;
-  justify-content: space-between;
-  margin-right: 20px;
+  justify-content: space-evenly;
   height: 90%;
 }
 
@@ -220,6 +242,9 @@
   height: 10px;
   width: 10px;
 }
+.our_location h1 {
+  margin-top: 10px;
+}
 .about_developer h1,
 .our_location h1,
 .testimonials h1 {
@@ -234,7 +259,7 @@
 }
 
 .our_location p a:hover {
-  color: red;
+  text-decoration: underline;
 }
 .testimonials ul {
   list-style-type: none;
@@ -244,8 +269,14 @@
 }
 /* Mobile */
 @media (max-width: 700px) {
+  .main {
+    min-height: 45vh;
+  }
 }
 
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
+  .nav_bar {
+    justify-content: space-even;
+  }
 }
