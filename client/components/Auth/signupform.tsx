@@ -44,7 +44,7 @@ const SignUpForm =()=> {
         return errors;
     }
 
-    // const submitValues = (values: any) => {
+    // const submitValues = (values: formik.values) => {
     //      //TODO: Make API function that takes values and submit to the backend
     //     console.log('Submitted');
     // }

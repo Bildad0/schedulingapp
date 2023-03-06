@@ -9,6 +9,7 @@
 
 .form {
   padding: 2rem;
+  width: 30em;
   display: flex;
   flex-direction: column;
   margin: 20px auto 0 auto;
@@ -19,8 +20,8 @@
 }
 .form_upper {
   align-items: center;
-  width: 75px;
-  height: 75px;
+  width: 80px;
+  height: 80px;
   margin-top: -65px;
   margin-left: auto;
   margin-right: auto;
