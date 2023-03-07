@@ -1,14 +1,15 @@
-import axios, { Axios } from "axios";
+import { AxiosError } from "axios";
+import { instance } from "./types";
 
 export const userSignup = async (payload: any) => {
-    const { data, status } = await instance.post('auth/register',
-        { email: payload.email, password: payload.password, username: payload.username, timezone: payload.timezone, });
-    return data;
+ let result = await instance.post('auth/register', { email: payload.email, password: payload.password, username: payload.username, timezone: payload.timezone });
+    if (result.status == 500) {
+        console.error("Server Error");
+    } else if (result.status !=200) {
+        console.error(result.statusText);
+    }
+    console.log(result.data);
+    } 
 
-}
 
-const instance = axios.create({
-    baseURL: 'http://localhost:3000/api/',
-    timeout: 1000,
-    headers: {'X-Custom-Header': 'application/json'}
-  });
+

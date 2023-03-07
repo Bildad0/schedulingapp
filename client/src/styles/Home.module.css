@@ -34,12 +34,11 @@
 }
 .auth_list {
   display: flex;
-  flex-direction: row;
+  margin-right: 20px;
   list-style-type: none;
   color: rgb(4, 4, 63);
 }
 .auth {
-  justify-content: space-evenly;
   margin-right: 10px;
 }
 .auth_list li,
@@ -78,10 +77,15 @@
 }
 
 .auth_list li {
-  padding: 1px;
+  border: 2px solid rgba(4, 4, 63, 0.4);
+  border-radius: 60%;
+  padding: 10px;
+  color: white;
+  background-color: green;
   margin: 10px;
+  font-style: italic;
   font-weight: bolder;
-  font-size: larger;
+  font-size: small;
 }
 
 .navigation_list li:hover {
@@ -91,7 +95,12 @@
 .auth_list li:hover {
   border: 2px solid green;
   border-radius: 5px;
-  padding: 5px;
+  font-size: bolder;
+  font-style: normal;
+  font-weight: bolder;
+  padding: 10px;
+  color: green;
+  background-color: white;
 }
 
 .auth_list li a,
