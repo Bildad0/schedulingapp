@@ -8,8 +8,7 @@ import { useRouter } from 'next/router'
 export default function Home() {
   const router = useRouter()
 
-  const onSignupButtonClick = (e:any) => {
-    e.preventDefault()
+  const onSignupButtonClick = () => {
     router.push('/auth/signup');
 }
   return (
@@ -32,7 +31,7 @@ export default function Home() {
           </div>
           </div>
           <div className={styles.svg}>
-            <Image src="/calendar.jpg" alt={'Calender svg'} width="500" height="500" className={styles.image} />
+            <Image src="/pic1.jpeg" alt={'image'} width="500" height="500" className={styles.image} />
           </div>
         </div>
       </main>

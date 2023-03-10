@@ -1,17 +1,11 @@
 import styles from '@/styles/signup.module.css'
-import { Formik, validateYupSchema } from 'formik'
+import { Formik, } from 'formik'
 import Image from 'next/image'
-import * as Yup from 'formik-yup'
 import { userSignup } from '@/pages/api/auth'
 
 
 
 const SignUpForm = () => {
-    //      //TODO: Make API function that takes values and submit to the backend
-    //        //TODO: check on formik on submit function
-
-
-
 return (
 <>
 <div>

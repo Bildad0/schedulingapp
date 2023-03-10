@@ -1,15 +1,35 @@
-import { AxiosError } from "axios";
-import { instance } from "./types";
 
-export const userSignup = async (payload: any) => {
- let result = await instance.post('auth/register', { email: payload.email, password: payload.password, username: payload.username, timezone: payload.timezone });
-    if (result.status == 500) {
-        console.error("Server Error");
-    } else if (result.status !=200) {
-        console.error(result.statusText);
-    }
-    console.log(result.data);
+import axios from "axios";
+
+export const userSignup = async (payload:any) => {
+    var data = JSON.stringify({
+        "email": payload.email,
+        "password": payload.password,
+        "username": payload.username,
+        "timezone":payload.timezone,
+      });
+      
+      var config = {
+        method: 'post',
+      maxBodyLength: 4,
+        url: 'http://localhost:3000/api/auth/register',
+          headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data
+      };
+      
+      axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error.message);
+      });
+
     } 
 
+  
 
+    
 

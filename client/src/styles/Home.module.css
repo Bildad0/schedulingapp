@@ -41,13 +41,13 @@
 .auth {
   margin-right: 10px;
 }
-.auth_list li,
+.auth_list button,
 .navigation_list li {
   margin-right: 1em;
 }
 
-.auth_list li:last-child,
-.navigation_list li:last-child {
+.auth_list button:last-child,
+.navigation_list button:last-child {
   margin-right: 0;
 }
 
@@ -76,7 +76,7 @@
   font-size: medium;
 }
 
-.auth_list li {
+.auth_list button {
   border: 2px solid rgba(4, 4, 63, 0.4);
   border-radius: 60%;
   padding: 10px;
@@ -92,7 +92,7 @@
   color: green;
 }
 
-.auth_list li:hover {
+.auth_list button:hover {
   border: 2px solid green;
   border-radius: 5px;
   font-size: bolder;
@@ -183,8 +183,8 @@
   margin-bottom: 10px;
   margin-left: 0;
   width: 90%;
-  height: 100%;
-  border-radius: 5px;
+  height: 125%;
+  border-radius: 1px;
 }
 .footer {
   margin-top: -30px;

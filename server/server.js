@@ -7,7 +7,11 @@ const mongoose = require("mongoose");
 const app = express();
 
 require("dotenv").config();
-app.use(cors());
+var corsOptions = {
+  origin: "http://localhost:3001",
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 mongoose.set("strictQuery", true);
