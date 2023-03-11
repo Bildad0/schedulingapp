@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
     username: { type: String, required: "Name is required" },
     timezone: { type: String },
     schedule: { type: [] },
+    image: { type: String },
   },
   { timestamps: true }
 );

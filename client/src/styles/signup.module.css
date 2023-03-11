@@ -18,6 +18,20 @@
   transition: background 200ms, border 200ms;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
+
+.form p {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.form p span {
+  color: brown;
+}
+.form p span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .form_upper {
   align-items: center;
   width: 80px;
@@ -80,4 +94,5 @@
   color: white;
   background-color: green;
   border-radius: 5px;
+  cursor: pointer;
 }

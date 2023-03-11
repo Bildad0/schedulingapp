@@ -1,5 +1,4 @@
 import Header from '@/../components/Header/header'
-import NavBar from '@/../components/Header/navbar'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import { useRouter } from 'next/router'
@@ -10,11 +9,31 @@ export default function Home() {
 
   const onSignupButtonClick = () => {
     router.push('/auth/signup');
-}
+  }
+  const handleLoginClick = () => {
+    router.push('/auth/login')
+  }
   return (
     <>
       <Header/>      
-   <NavBar/>
+      <nav className={styles.nav_bar}>
+        <div className={styles.nav_bar_content}>
+          <h1 className={styles.title}>My Scheduler</h1>
+          <div className={styles.navigation}>
+            <ul className={styles.navigation_list}>
+              <li>Home</li>
+              <li>Testimonials</li>
+              <li>FAQs</li>
+              <li>Contact us</li>
+            </ul>
+          </div>
+        </div>
+        <div className={styles.auth}>
+            <ul className={styles.auth_list}>
+              <button className={styles.login} onClick={handleLoginClick}>LOGIN</button>
+            </ul>
+          </div>
+            </nav>
 
       <main className={styles.main}>        
         <div className={styles.main_body}>

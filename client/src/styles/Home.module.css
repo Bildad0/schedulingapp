@@ -78,7 +78,7 @@
 
 .auth_list button {
   border: 2px solid rgba(4, 4, 63, 0.4);
-  border-radius: 60%;
+  border-radius: 5px;
   padding: 10px;
   color: white;
   background-color: green;

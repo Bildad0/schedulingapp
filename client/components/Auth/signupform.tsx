@@ -13,8 +13,7 @@ return (
   initialValues={{ email: '',username:'',timezone:'',password:'',confirmPassword:'', }}
   onSubmit={(values, actions) => {
     setTimeout(() => {
-      userSignup(JSON.stringify(values, null, 2));
-      alert(JSON.stringify(values, null, 2));
+      userSignup(values);
       actions.setSubmitting(false);
     }, 1000);
   }}
@@ -79,7 +78,9 @@ return (
      name="confirmPassword"
     /> 
     {props.errors.confirmPassword && <div id="feedback">{props.errors.confirmPassword}</div>}
-    <button type="submit">Submit</button>
+    
+    <p>Already have an account? <span><a href="./login"> Login Here</a> </span></p>
+    <button type="submit">Sign Up</button>
     </form>
   )}
 </Formik>

@@ -5,7 +5,7 @@ export const userSignup = async (payload:any) => {
       var config = {
       method: 'post',
       maxBodyLength: 4,
-        url: 'http://0.0.0.0:3000/api/auth/register',
+        url: BASEURL,
           headers: { 
           'Content-Type': 'application/json'
         },
@@ -29,10 +29,28 @@ export const userSignup = async (payload:any) => {
         console.error(error);
     }
      
-
     } 
 
   
 
+export const userLogin = async (payload: any) => { 
+  
+}
     
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const BASEURL ="http://0.0.0.0:3000/api/auth/register"
