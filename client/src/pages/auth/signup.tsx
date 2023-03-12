@@ -1,18 +1,12 @@
 import type { NextPage } from 'next' 
-import SignUpForm from '@/../components/Auth/signupform'
-import Head from 'next/head'
+import SignUpForm from '@/components/Auth/signupform'
 import styles from '@/styles/signup.module.css'
+import Header from '../../components/Header/header'
 
 const SignUp: NextPage = () => {
     return (
         <>
-              <Head>
-            <title>My Scheduler || Sign Up</title>
-            <meta name="description" content="A web app used to book appointments and schedule activities." />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <link rel="icon" href="calendar.png" />
-           </Head>
-
+    <Header/>
             <main className={styles.main}>
                 <SignUpForm />
             </main>

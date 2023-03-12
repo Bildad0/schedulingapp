@@ -1,56 +1,23 @@
 
-import axios from "axios";
 
+import { axiosInstance } from "./constants";
+import { ApiResponse } from "./types";
 export const userSignup = async (payload:any) => {      
-      var config = {
-      method: 'post',
-      maxBodyLength: 4,
-        url: BASEURL,
-          headers: { 
-          'Content-Type': 'application/json'
-        },
-        data :  JSON.stringify({
-        "email": payload.email,
-        "password": payload.password,
-        "username": payload.username,
-        "timezone":payload.timezone,
-      }),
-      };
-    
-    try {
-    await  axios(config)
-    .then(function (response) {
-    console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-    console.log(error.message);
+  const {data,status} = await axiosInstance.post<ApiResponse>("/auth/register",
+    {
+      email: payload.email,
+      password: payload.password,
+      username: payload.username,
+      timezone:payload.timezone,
     });
-     } catch (error) {
-        console.error(error);
-    }
-     
+  if (status == 200) {
+    return data;
+  } else if (status == 500) {
+    return { message: "Server error" }; 
+  } return status;
+   
     } 
-
-  
 
 export const userLogin = async (payload: any) => { 
   
 }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-const BASEURL ="http://0.0.0.0:3000/api/auth/register"

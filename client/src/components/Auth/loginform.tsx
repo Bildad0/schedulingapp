@@ -2,20 +2,18 @@ import styles from '@/styles/login.module.css'
 import { Formik} from 'formik'
 import Image from 'next/image'
 import { userLogin} from '@/pages/api/auth'
-import { useRouter } from 'next/router'
+
 
 
 const LoginForm = () => {
-  const router = useRouter();
+ 
 return (
-<>
 <div>
 <Formik
   initialValues={{ emailorUsername:'',password:'', }}
   onSubmit={(values, actions) => {
     setTimeout(() => {
       userLogin(values)
-      router.push('/home');
       actions.setSubmitting(false);
     }, 1000);
   }}
@@ -60,7 +58,6 @@ return (
   )}
 </Formik>
 </div>
-</>
     )
 }
 

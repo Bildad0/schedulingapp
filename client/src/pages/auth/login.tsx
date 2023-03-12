@@ -1,18 +1,14 @@
 import type { NextPage } from 'next'
-import LoginForm from '@/../components/Auth/loginform'
+import LoginForm from '@/components/Auth/loginform'
 import styles from '@/styles/Home.module.css'
+import Header from '../../components/Header/header'
 
 
 const login: NextPage = () => {
     return (
         <>
+         <Header />
             <main className={styles.main}>
-            <head>
-            <title>My Scheduler || login</title>
-            <meta name="description" content="A web app used to book appointments and schedule activities." />
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <link rel="icon" href="calendar.png" />
-           </head>
                 <LoginForm/>
             </main>
             

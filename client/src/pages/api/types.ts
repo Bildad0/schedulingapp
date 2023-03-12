@@ -1,7 +1,7 @@
 export interface IUser {
     username: string;
     email: string;
-    timezone: string;
+    timezone: [string];
     schedule: [string];
     image: string;
     _id: string;
@@ -27,3 +27,10 @@ export interface ILoginResponse {
       user: IUser;
     };
   }
+
+  
+  export  type ApiResponse ={
+    result: object;
+    errorMessage: string;
+    succeeded: boolean;
+  };

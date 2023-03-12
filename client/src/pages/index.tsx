@@ -1,4 +1,4 @@
-import Header from '@/../components/Header/header'
+import Header from '@/components/Header/header'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import { useRouter } from 'next/router'
@@ -50,7 +50,7 @@ export default function Home() {
           </div>
           </div>
           <div className={styles.svg}>
-            <Image src="/pic1.jpeg" alt={'image'} width="500" height="500" className={styles.image} />
+            <Image src="/pic1.jpeg" alt={'image'} width="1000" height="1000" className={styles.image} />
           </div>
         </div>
       </main>
@@ -58,7 +58,6 @@ export default function Home() {
         <div className={styles.footer_container}>
           <div className={styles.about_app}>
             <Image src={'/Tomorrow.svg'} alt={'date'}width="500" height="500" className={styles.image }/>
-            <p></p>
           </div>
           <div className={styles.about_developer}>
             <h1>Our Team</h1>

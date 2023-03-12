@@ -2,18 +2,31 @@ import styles from '@/styles/signup.module.css'
 import { Formik, } from 'formik'
 import Image from 'next/image'
 import { userSignup } from '@/pages/api/auth'
+import { AppConstants } from '@/pages/api/constants'
+import { useRouter } from 'next/router'
+import { Notify } from 'notiflix'
 
 
 
 const SignUpForm = () => {
+  const router = useRouter();
 return (
-<>
 <div>
 <Formik
   initialValues={{ email: '',username:'',timezone:'',password:'',confirmPassword:'', }}
   onSubmit={(values, actions) => {
-    setTimeout(() => {
-      userSignup(values);
+    setTimeout(async () => {
+      await userSignup(values).then(function (response) {
+          localStorage.config({ name: AppConstants.APP_NAME });
+          localStorage.setItem(AppConstants.LOGIN_DATA, JSON.stringify(response));
+          localStorage.setItem(AppConstants.LOGIN_DATA, JSON.stringify(response));
+          console.log(JSON.stringify(response));
+          Notify.success("Welcome");
+          return router.push("auth/login");
+      }).catch(function (error) { 
+        Notify.failure(error.errorMessage);
+        return router.push("/");
+      });
       actions.setSubmitting(false);
     }, 1000);
   }}
@@ -85,7 +98,7 @@ return (
   )}
 </Formik>
 </div>
-</>
+
     )
 }
 
