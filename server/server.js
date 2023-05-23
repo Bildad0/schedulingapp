@@ -8,8 +8,11 @@ const app = express();
 
 require("dotenv").config();
 var corsOptions = {
-  optionsSuccessStatus: 200,
-  headers: { Accept: "application/json", "Content-Type": "application/json" },
+  headers: {
+    "Access-Control-Allow-Credentials": false,
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
+  },
 };
 app.use(cors(corsOptions));
 app.use(express.json());
