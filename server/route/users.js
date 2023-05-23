@@ -10,7 +10,7 @@ userRouter.get("/profile/:id", async (req, res) => {
     if (user) {
       res.status(200).json(user);
     } else {
-      res.status(404).json({ message: "User is cannot be found" });
+      res.status(404).json({ message: "User cannot be found" });
     }
   } catch (error) {
     res.status(500).json(error.message);
@@ -66,12 +66,16 @@ userRouter.get("/:username", async (req, res) => {
 userRouter.delete("/delete/:id", async (req, res) => {
   const userId = req.params.id;
   try {
-    const userToDelete = await User.findOneAndDelete({ id: userId });
-    res.status(200).json({
-      message: "User " + userToDelete.username + " deleted successfuly",
-    });
+    const userToDelete = await User.findOne({ id: userId });
+    if (res.status(200)) {
+      const userDeleted = await User.findOneAndDelete({ id: userId });
+      res.status(200).json({
+        message: "User " + userDeleted.username + " deleted successfuly",
+      });
+    }
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ message: "User can not be found" });
+    res.status(error.status).json({ message: `${error.message}` });
   }
 });
 
