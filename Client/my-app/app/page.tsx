@@ -1,33 +1,10 @@
 import Image from 'next/image'
+import NavBar from './components/navbar'
 
 export default function Home() {
   return (
     <div className='text-2xl subpixel-antialiased'>
-      {/* nav bar */}
-      <div className="flex flex-row gap-3 bg-sky-200 p-6 justify-between sticky drop-shadow-xl">
-        <div className='flex flex-row justify-start'>
-          <Image src='' alt="logo" loading='lazy'/>
-          <h1 className='font-bold text-black'>A sync</h1>
-        </div>
-        {/* navbar items */}
-        <div className='hidden sm:hidden md:flex lg:flex'>
-          <ul className='flex flex-row gap-6 justify-center'>
-            <li>Features</li>
-            <li>Solution</li>
-            <li>Resources</li>
-            <li>Prices</li>
-          </ul>
-        </div>
-        {/* Sign up and login Button */}
-        <div className='hidden sm:hidden md:flex lg:flex  flex-row gap-3 justify-end'>
-          <button className='p-3'>Login</button>
-          <button className='p-3'>Sign Up</button>
-        </div>
-
-          {/* mobile nav toggler */}
-     <div className="flex sm:flex md:hidden lg:hidden xl:hidden">Toggle Icon</div>
-      </div>
-    
+   <NavBar />
       {/* main Body */}
        <main className="bg-white min-h-screen pt-1 pl-3 sm:pt-2 lg:p-16 md:pt-16">
 
@@ -51,7 +28,7 @@ export default function Home() {
           alt="task image"/> 
           </div>
         </div>
-        {/* body sectoion twos */}
+        {/* body section two */}
         <h1 className="text-center tracking-2xl   md:text-7xl font-light  p-8 md:tracking-widest sm:text-lg sm:tracking-2xl">Say hello to smart <br/> appointment scheduling </h1>
         <div className="grid grid-rows-6 md:grid-rows-2 lg:grid-rows-2 sm:grid-rows-6 grid-flow-col p-1 gap-3">
           <div className="p-2 card drop-shadow-2xl">
