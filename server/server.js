@@ -1,5 +1,5 @@
 const express = require("express");
-
+const homeRouter = require("./route/landing");
 const authRouter = require("./route/auth");
 const userRouter = require("./route/users");
 const scheduleRouter = require("./route/schedules");
@@ -31,7 +31,7 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-
+app.use("/api", homeRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/schedules", scheduleRouter);

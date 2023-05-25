@@ -1,22 +1,28 @@
 import Image from 'next/image'
 import NavBar from './components/navbar'
+import Link from "next/link"
 
 export default function Home() {
   return (
     <div className='text-2xl subpixel-antialiased'>
    <NavBar />
       {/* main Body */}
-       <main className="bg-white min-h-screen pt-1 pl-3 sm:pt-2 lg:p-16 md:pt-16">
+       <main className="bg-white min-h-screen">
 
         {/*  body section one*/}
-        <div className='grid  grid-flow-col grid-rows-2 md:grid-rows-1 lg:grid-rows-1 xl:grid-rows-1 justify-between gap-6'>
+        <div className='grid  grid-flow-col grid-rows-2 md:grid-rows-1 lg:grid-rows-1 xl:grid-rows-1 justify-between gap-6 pt-1 pl-3 sm:pt-2 lg:pt-16 md:pt-16'>
           {/* first column */}
           <div className='p-2 tracking-wide mt-2 sm:mt-2 md:mt-32 lg:mt-32 sm:p-2 md:p-6 lg:p-6'>
             <h1>Online scheduler for offering the best consultations</h1>
             <p className="pb-6 whitespace-normal ">Our user interface auto-Customizes for  your industry,<br/>
               meaning you feel right at home. Say hello to start scheduling!
             </p>
-            <button className="p-3 mt-16 rounded-xl text-white bg-sky-700">Sign up for Free <span>	&gt;</span></button>
+            <Link href="/signup">
+              <button className="p-3 mt-16 rounded-xl text-white bg-sky-700">
+                Sign up for Free <span>	&gt;</span>
+              </button>
+            </Link>
+
           </div>
           {/* second column */}
           <div className='text-center'> 
@@ -29,44 +35,45 @@ export default function Home() {
           </div>
         </div>
         {/* body section two */}
-        <h1 className="text-center tracking-2xl   md:text-7xl font-light  p-8 md:tracking-widest sm:text-lg sm:tracking-2xl">Say hello to smart <br/> appointment scheduling </h1>
-        <div className="grid grid-rows-6 md:grid-rows-2 lg:grid-rows-2 sm:grid-rows-6 grid-flow-col p-1 gap-3">
-          <div className="p-2 card drop-shadow-2xl">
+        <div className="bg-gradient-to-r from-sky-400 to-sky-700 p-4 text-white pb-10 mt-8">
+        <h1 className="text-center tracking-2xl    md:text-7xl font-light  p-8 md:tracking-widest sm:text-lg sm:tracking-2xl">Say hello to smart <br/> appointment scheduling </h1>
+        <div className="grid grid-rows-6 md:grid-rows-2 lg:grid-rows-2 sm:grid-rows-6 grid-flow-col p-1 gap-8">
+          <div className="p-2 card shadow-2xl bg-white text-black rounded-md">
             <ul className="text-center">
               <li>Icon</li>
               <li>Sync your calenders</li>
               <li>Wether you have a team of 2 or 200, our shared team inboxes keep everyone on the same page and in the loop.</li>
             </ul>
           </div>
-          <div className="p-2 card drop-shadow-2xl">
+          <div className="p-2 card shadow-2xl bg-white text-black rounded-md">
             <ul className="text-center">
             <li>Icon</li>
               <li>set up buffer times</li>
               <li>dd buffer times to your schedule to allow yourself preparatory time before and after each appointment</li>
             </ul>
           </div>
-          <div className="p-2 card drop-shadow-2xl">
-            <ul className="text-center card">
+          <div className="p-2 card shadow-2xl bg-white text-black rounded-md">
+            <ul className="text-center">
               <li>Icon</li>
               <li>Manage your team with reports</li>
               <li>Measure what matters with titled easy to use reports. You can filter , export and drilldown on the data in a couple of clicks.</li>
             </ul>
           </div>
-          <div className="p-2 card drop-shadow-2xl">
-            <ul className="text-center card">
+          <div className="p-2 card shadow-2xl bg-white text-black rounded-md">
+            <ul className="text-center">
               <li>Icon</li>
               <li>Plain work and break times</li>
               <li></li>
             </ul>
           </div>
-          <div className="p-2 card drop-shadow-2xl">
+          <div className="p-2 card shadow-2xl bg-white text-black rounded-md">
             <ul className="text-center">
               <li>Icon</li>
               <li>Connect to tools you already use</li>
               <li></li>
             </ul>
           </div>
-          <div className="p-2 card drop-shadow-2xl">
+          <div className="p-2 card shadow-2xl bg-white text-black rounded">
             <ul className='text-center'>
               <li>Icon</li>
               <li>Our people make the difference</li>
@@ -74,6 +81,8 @@ export default function Home() {
             </ul>
             </div>
         </div>
+        </div>
+       
 
       </main>
     </div>

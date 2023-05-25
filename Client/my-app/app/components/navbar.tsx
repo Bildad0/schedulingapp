@@ -2,7 +2,7 @@
 
 export default function NavBar() {
     return (
-      <div className="flex flex-row gap-3 bg-sky-200 p-6 justify-between sticky drop-shadow-xl">
+      <div className="flex flex-row gap-3 bg-sky-200 p-6 justify-between sticky sticky-top drop-shadow-xl">
         <div className='flex flex-row justify-start'>
           <h1 className='font-bold text-black'>A sync</h1>
         </div>
