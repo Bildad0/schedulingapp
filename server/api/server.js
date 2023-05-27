@@ -8,14 +8,16 @@ const mongoose = require("mongoose");
 const app = express();
 
 require("dotenv").config();
-var corsOptions = {
-  headers: {
-    "Access-Control-Allow-Credentials": false,
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-  },
-};
-app.use(cors(corsOptions));
+// var corsOptions = {
+//   headers: {
+//     "Access-Control-Allow-Credentials": false,
+//     "Content-Type": "application/json",
+//     "Access-Control-Allow-Origin": "http://localhost:3001/",
+//     "Access-Control-Allow-Headers":
+//       "Origin, X-Requested-With, Content-Type, Accept",
+//   },
+// };
+app.use(cors());
 app.use(express.json());
 
 mongoose.set("strictQuery", true);
