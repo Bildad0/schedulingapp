@@ -33,7 +33,7 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-app.use("/api", homeRouter);
+app.use("/", homeRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/schedules", scheduleRouter);
