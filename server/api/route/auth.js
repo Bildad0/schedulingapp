@@ -7,15 +7,14 @@ const authRouter = express.Router();
 
 authRouter.post("/register", async (req, res) => {
   const { email, password, username, timezone } = req.body;
-
   try {
     const userExistWithEmail = await User.findOne({ email: email });
     const userExistWithUserName = await User.findOne({ username: username });
     if (userExistWithEmail) {
-      return res.status(422).json({ message: "Email already exists" });
+      res.status(422).json({ message: "Email already exists" });
     }
     if (userExistWithUserName) {
-      return res.status(422).json({ message: "User name already exist" });
+      res.status(422).json({ message: "User name already exist" });
     }
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -38,26 +37,20 @@ authRouter.post("/register", async (req, res) => {
 authRouter.post("/login", async (req, res) => {
   try {
     const { input, password } = req.body;
-    const userByEmail = User.findOne({ email: input });
-    const userByUsername = User.findOne({ username: input });
-    if (!userByEmail) {
-      if (!userByUsername)
-        return res.status(404).json({ error: "User not found" });
-    }
+    const userByEmail = await User.findOne({ email: input });
     const checkPasswordMatch = bcrypt.compare(
       password,
-      User.findOne({ password }).toString()
+      await User.findOne({ password: password })
     );
-    if (!checkPasswordMatch) {
-      return res.status(401).json({ error: "Incorrect password." });
+    if (!userByEmail && !checkPasswordMatch) {
+      res.status(404).json({ message: "User not found" });
     }
-
     const token = jtw.sign(
       {
-        id: userByEmail.id || userByUsername.id,
-        schedule: userByEmail.schedule || userByUsername.schedule,
-        username: userByEmail.username || userByUsername.username,
-        timezone: userByEmail.timezone || userByUsername.timezone,
+        id: userByEmail.id,
+        schedule: userByEmail.schedule,
+        username: userByEmail.username,
+        timezone: userByEmail.timezone,
       },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
