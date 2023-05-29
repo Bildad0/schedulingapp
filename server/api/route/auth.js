@@ -37,26 +37,27 @@ authRouter.post("/register", async (req, res) => {
 authRouter.post("/login", async (req, res) => {
   try {
     const { input, password } = req.body;
-    const userByEmail = await User.findOne({ email: input });
-    const checkPasswordMatch = bcrypt.compare(
-      password,
-      await User.findOne({ password: password })
-    );
-    if (!userByEmail && !checkPasswordMatch) {
-      res.status(404).json({ message: "User not found" });
-    }
-    const token = jtw.sign(
-      {
-        id: userByEmail.id,
-        schedule: userByEmail.schedule,
-        username: userByEmail.username,
-        timezone: userByEmail.timezone,
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
-    res.status(200).json({
-      token,
+    const userByEmail = await User.findOne({ email: input }).then(async () => {
+      const checkPasswordMatch = bcrypt.compare(
+        password,
+        await User.findOne({ password: password })
+      );
+      if (!userByEmail && !checkPasswordMatch) {
+        res.status(404).json({ message: "User not found" });
+      }
+      const token = jtw.sign(
+        {
+          id: userByEmail.id,
+          schedule: userByEmail.schedule,
+          username: userByEmail.username,
+          timezone: userByEmail.timezone,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: "7d" }
+      );
+      res.status(200).json({
+        token,
+      });
     });
   } catch (error) {
     res.status(500).json(error.message);

@@ -1,5 +1,4 @@
 const express = require("express");
-const homeRouter = require("./route/landing");
 const authRouter = require("./route/auth");
 const userRouter = require("./route/users");
 const scheduleRouter = require("./route/schedules");
@@ -8,6 +7,8 @@ const mongoose = require("mongoose");
 const app = express();
 
 require("dotenv").config();
+
+//TODO: I'll add custom cors policy later
 // var corsOptions = {
 //   headers: {
 //     "Access-Control-Allow-Credentials": false,
@@ -33,7 +34,6 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-app.use("/", homeRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
 app.use("/api/schedules", scheduleRouter);
