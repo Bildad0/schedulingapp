@@ -8,12 +8,12 @@ userRouter.get("/profile/:id", async (req, res) => {
   try {
     const user = await User.findOne({ id: userId });
     if (user) {
-      res.status(200).json(user);
+      res.status(200).json({ user: user });
     } else {
       res.status(404).json({ message: "User cannot be found" });
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ message: `${error.message}` });
   }
 });
 
@@ -28,7 +28,7 @@ userRouter.put("/edit/:id", async (req, res) => {
       message: "User " + updateUser.username + " updated successfuly",
     });
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ message: `${error.message}` });
   }
 });
 
@@ -42,7 +42,7 @@ userRouter.get("/", async (req, res) => {
       res.status(200).json({ users });
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ message: `${error.message}` });
   }
 });
 
@@ -53,12 +53,12 @@ userRouter.get("/:username", async (req, res) => {
     const user = User.findOne({ username: userName });
 
     if (user) {
-      res.status(200).json(user);
+      res.status(200).json({ user });
     } else {
       res.status(404).json({ message: "No user with user name " + userName });
     }
   } catch (error) {
-    res.status(500).json(error.message);
+    res.status(500).json({ message: `${error.message}` });
   }
 });
 

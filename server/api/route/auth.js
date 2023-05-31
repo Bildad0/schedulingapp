@@ -10,12 +10,12 @@ authRouter.post("/register", async (req, res) => {
   try {
     const userExistWithEmail = await User.findOne({ email: email });
     const userExistWithUserName = await User.findOne({ username: username });
-    if (userExistWithEmail) {
+    if (userExistWithEmail && !userExistWithUserName) {
       res.status(422).json({ message: "Email already exists" });
-    }
-    if (userExistWithUserName) {
+    } else if (userExistWithUserName && !userExistWithEmail) {
       res.status(422).json({ message: "User name already exist" });
     }
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = User({
@@ -26,6 +26,7 @@ authRouter.post("/register", async (req, res) => {
       timezone,
     });
     const savedUser = await newUser.save();
+
     res
       .status(200)
       .json({ message: "Account created succesfully", data: savedUser });
@@ -37,27 +38,29 @@ authRouter.post("/register", async (req, res) => {
 authRouter.post("/login", async (req, res) => {
   try {
     const { input, password } = req.body;
-    const userByEmail = await User.findOne({ email: input }).then(async () => {
-      const checkPasswordMatch = bcrypt.compare(
-        password,
-        await User.findOne({ password: password })
-      );
-      if (!userByEmail && !checkPasswordMatch) {
+    await User.findOne({ email: input }).then((response) => {
+      const checkPasswordMatch = bcrypt.compare(password, response.password);
+      if (!checkPasswordMatch) {
         res.status(404).json({ message: "User not found" });
       }
-      const token = jtw.sign(
-        {
-          id: userByEmail.id,
-          schedule: userByEmail.schedule,
-          username: userByEmail.username,
-          timezone: userByEmail.timezone,
-        },
-        process.env.JWT_SECRET,
-        { expiresIn: "7d" }
-      );
-      res.status(200).json({
-        token,
-      });
+      var salt = bcrypt.genSalt(10);
+      var hashedPassword = bcrypt.hash(password, salt);
+      if (hashedPassword == response.password) {
+        const token = jtw.sign(
+          {
+            id: response.id,
+            schedule: response.schedule,
+            username: response.username,
+            timezone: response.timezone,
+          },
+          process.env.JWT_SECRET,
+          { expiresIn: "7d" }
+        );
+        res.status(200).json({
+          token,
+          user: response,
+        });
+      }
     });
   } catch (error) {
     res.status(500).json(error.message);
