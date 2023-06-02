@@ -8,7 +8,7 @@ userRouter.get("/profile/:id", async (req, res) => {
   try {
     const user = await User.findOne({ id: userId });
     if (user) {
-      res.status(200).json({ user: user });
+      res.status(200).json({ data: user });
     } else {
       res.status(404).json({ message: "User cannot be found" });
     }
@@ -39,7 +39,7 @@ userRouter.get("/", async (req, res) => {
     if (users[0] == null) {
       res.status(404).json({ message: "No Users" });
     } else {
-      res.status(200).json({ users });
+      res.status(200).json({ data: users });
     }
   } catch (error) {
     res.status(500).json({ message: `${error.message}` });
@@ -53,7 +53,7 @@ userRouter.get("/:username", async (req, res) => {
     const user = User.findOne({ username: userName });
 
     if (user) {
-      res.status(200).json({ user });
+      res.status(200).json({ data: user });
     } else {
       res.status(404).json({ message: "No user with user name " + userName });
     }
