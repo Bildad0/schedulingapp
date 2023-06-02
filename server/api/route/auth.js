@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("fs");
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
 const jtw = require("jsonwebtoken");
@@ -6,8 +7,9 @@ const User = require("../models/userModel");
 const authRouter = express.Router();
 
 authRouter.post("/register", async (req, res) => {
-  const { email, password, username, timezone } = req.body;
+  const { fname, lname, email, password, username, timezone, image } = req.body;
   try {
+    // check user existence
     const userExistWithEmail = await User.findOne({ email: email });
     const userExistWithUserName = await User.findOne({ username: username });
     if (userExistWithEmail && !userExistWithUserName) {
@@ -16,17 +18,26 @@ authRouter.post("/register", async (req, res) => {
       res.status(422).json({ message: "User name already exist" });
     }
 
+    //convert base 64 image here
+    var imageData = fs.readFileSync(image);
+    var imageUri = imageData.toString("base64");
+
+    //encrypting user password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
+
     const newUser = User({
       id: uuidv4(),
+      fname,
+      lname,
       email,
       password: hashedPassword,
       username,
       timezone,
+      imageUrl: imageUri,
     });
-    const savedUser = await newUser.save();
 
+    const savedUser = await newUser.save();
     res
       .status(200)
       .json({ message: "Account created succesfully", data: savedUser });

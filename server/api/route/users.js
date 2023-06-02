@@ -1,6 +1,8 @@
 const express = require("express");
 const userRouter = express.Router();
 const User = require("../models/userModel");
+const bcrypt = require("bcrypt");
+const fs = require("fs");
 
 //get user by id
 userRouter.get("/profile/:id", async (req, res) => {
@@ -19,9 +21,26 @@ userRouter.get("/profile/:id", async (req, res) => {
 
 //edit user
 userRouter.put("/edit/:id", async (req, res) => {
+  const { fname, lname, email, password, username, timezone, image } = req.body;
   try {
+    //encrypt password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    //convert image to base 64 incase of any
+    var imageData = fs.readFileSync(image);
+    var imageUri = imageData.toString("base64");
+
     const updateUser = await User.findByIdAndUpdate(req.params.id, {
-      $set: req.body,
+      $set: {
+        fname,
+        lname,
+        email,
+        username,
+        timezone,
+        imageUrl: imageUri,
+        password: hashedPassword,
+      },
     });
 
     res.status(200).json({
@@ -67,7 +86,7 @@ userRouter.delete("/delete/:id", async (req, res) => {
   const userId = req.params.id;
   try {
     const userToDelete = await User.findOne({ id: userId });
-    if (res.status(200)) {
+    if (userToDelete) {
       const userDeleted = await User.findOneAndDelete({ id: userId });
       res.status(200).json({
         message: "User " + userDeleted.username + " deleted successfuly",
