@@ -37,12 +37,30 @@ authRouter.post("/register", async (req, res) => {
       imageUrl: imageUri,
     });
 
-    const savedUser = await newUser.save();
-    res
-      .status(200)
-      .json({ message: "Account created succesfully", data: savedUser });
+    await newUser.save().then((response) => {
+      if (response.status == 200) {
+        const token = jtw.sign(
+          {
+            id: response.id,
+            username: response.username,
+            timezone: response.timezone,
+          },
+          process.env.JWT_SECRET,
+          { expiresIn: "7d" }
+        );
+        res.status(200).json({
+          message: "Account created succesfully",
+          data: response.data,
+          token,
+        });
+      }
+      res.json({
+        message: "We are having trouble creating your account try again later",
+        data: null,
+      });
+    });
   } catch (error) {
-    res.status(500).json(error.message);
+    res.json({ message: error.message, data: null });
   }
 });
 
@@ -52,7 +70,10 @@ authRouter.post("/login", async (req, res) => {
     await User.findOne({ email: input }).then((response) => {
       const checkPasswordMatch = bcrypt.compare(password, response.password);
       if (!checkPasswordMatch) {
-        res.status(404).json({ message: "User not found" });
+        res.status(404).json({
+          message: "Incorrect password",
+          data: null,
+        });
       }
       var salt = bcrypt.genSalt(10);
       var hashedPassword = bcrypt.hash(password, salt);
@@ -60,7 +81,6 @@ authRouter.post("/login", async (req, res) => {
         const token = jtw.sign(
           {
             id: response.id,
-            schedule: response.schedule,
             username: response.username,
             timezone: response.timezone,
           },
@@ -69,12 +89,13 @@ authRouter.post("/login", async (req, res) => {
         );
         res.status(200).json({
           token,
-          user: response,
+          data: response,
+          message: "Logged in as" + response.username,
         });
       }
     });
   } catch (error) {
-    res.status(500).json(error.message);
+    res.json({ message: error.message, data: null });
   }
 });
 
