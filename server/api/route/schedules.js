@@ -6,28 +6,55 @@ const scheduleRouter = express.Router();
 //create schedules in the server
 scheduleRouter.post("/add", async (req, res) => {
   const { userId, time, schedule, guest_id, scheduletype } = req.body;
-  try {
-    const newSchedule = Schedule({
-      id: uuidv4(),
-      userId,
-      time,
-      schedule,
-      guest_id,
-      scheduletype,
-    });
-    await newSchedule.save().then((response) => {
-      res.status(200).json({
-        message: "Schedule created succesfully",
-        data: newSchedule,
+
+  const newSchedule = Schedule({
+    id: uuidv4(),
+    userId,
+    time,
+    schedule,
+    guest_id,
+    scheduletype,
+  });
+
+  //check schedule availability
+  const scheduleAvailable = await Schedule.findOne({
+    guest_id: newSchedule.guest_id,
+    scheduletype: newSchedule.scheduletype,
+  });
+
+  if (scheduleAvailable) {
+    try {
+      await Schedule.findByIdAndUpdate(
+        { _id: scheduleAvailable._id },
+        {
+          schedule: newSchedule.schedule,
+          scheduletype: newSchedule.scheduletype,
+        }
+      ).then((response) => {
+        res.json({
+          message: "Schedule update succesfully",
+          data: response,
+        });
       });
-    });
-  } catch (error) {
-    res.json({ message: error.message, data: null });
+    } catch (error) {
+      res.json({ message: error.message, data: null });
+    }
+  } else {
+    try {
+      await newSchedule.save().then((response) => {
+        res.status(200).json({
+          message: "Schedule created succesfully",
+          data: response.data,
+        });
+      });
+    } catch (error) {
+      res.json({ message: error.message, data: null });
+    }
   }
 });
 
 //get all schedules
-scheduleRouter.get("/", async (res) => {
+scheduleRouter.get("/", async (req, res) => {
   try {
     const schedules = await Schedule.find();
     if (schedules[0] != null) {
@@ -36,7 +63,7 @@ scheduleRouter.get("/", async (res) => {
       res.status(404).json({ message: "No schedules available", data: null });
     }
   } catch (error) {
-    res.json({ message: error, data: null });
+    res.json({ message: error.message, data: null });
   }
 });
 
@@ -58,6 +85,7 @@ scheduleRouter.get("/:id", async (req, res) => {
 //delete all schedules
 scheduleRouter.delete("/delete/:id", async (req, res) => {
   const schedulId = req.params.id;
+  const schedules = await Schedule.find;
   try {
     const scheduleToDelete = await Schedule.findOneAndDelete({
       id: schedulId,

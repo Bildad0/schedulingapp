@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: "Password is required" },
     username: { type: String, required: "Name is required" },
     timezone: { city: { type: String }, country: { type: String } },
-    schedules: [],
+    schedules: [{}],
     imageUrl: { type: String },
   },
   { timestamps: true }
