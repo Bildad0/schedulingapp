@@ -1,11 +1,12 @@
+const { VercelRequest, VercelResponse } = require("@vercel/node");
 const express = require("express");
 const { v4: uuidv4 } = require("uuid");
 const Schedule = require("../models/scheduleModel");
 const scheduleRouter = express.Router();
 
 //create schedules in the server
-scheduleRouter.post("/add", async (req, res) => {
-  const { userId, time, schedule, guest_id, scheduletype } = req.body;
+scheduleRouter.post("/add", async (VercelRequest, VercelResponse) => {
+  const { userId, time, schedule, guest_id, scheduletype } = VercelRequest.body;
 
   const newSchedule = Schedule({
     id: uuidv4(),
@@ -32,74 +33,83 @@ scheduleRouter.post("/add", async (req, res) => {
           scheduletype: newSchedule.scheduletype,
         }
       ).then((response) => {
-        res.json({
+        VercelResponse.json({
           message: "Schedule update succesfully",
           data: response,
         });
       });
     } catch (error) {
-      res.json({ message: error.message, data: null });
+      VercelResponse.json({ message: error.message, data: null });
     }
   } else {
     try {
       await newSchedule.save().then((response) => {
-        res.status(200).json({
+        VercelResponse.status(200).json({
           message: "Schedule created succesfully",
           data: response,
         });
       });
     } catch (error) {
-      res.json({ message: error.message, data: null });
+      VercelResponse.json({ message: error.message, data: null });
     }
   }
 });
 
 //get all schedules
-scheduleRouter.get("/", async (req, res) => {
+scheduleRouter.get("/", async (VercelRequest, VercelResponse) => {
   try {
     const schedules = await Schedule.find();
     if (schedules[0] != null) {
-      res.status(200).json({ data: schedules, message: "schedules found" });
+      VercelResponse.status(200).json({
+        data: schedules,
+        message: "schedules found",
+      });
     } else {
-      res.status(404).json({ message: "No schedules available", data: null });
+      VercelResponse.status(404).json({
+        message: "No schedules available",
+        data: null,
+      });
     }
   } catch (error) {
-    res.json({ message: error.message, data: null });
+    VercelResponse.json({ message: error.message, data: null });
   }
 });
 
 //get schedule by id
-scheduleRouter.get("/:id", async (req, res) => {
-  const scheduleId = req.params.id;
+scheduleRouter.get("/:id", async (VercelRequest, VercelResponse) => {
+  const scheduleId = VercelRequest.query.id;
   try {
     const schedule = await Schedule.findOne({ id: scheduleId });
     if (schedule) {
-      res.status(200).json({ data: schedule, message: "schedule found" });
+      VercelResponse.status(200).json({
+        data: schedule,
+        message: "schedule found",
+      });
     } else {
-      res.status(404).json({ message: "No schedule with such id" });
+      VercelResponse.status(404).json({ message: "No schedule with such id" });
     }
   } catch (error) {
-    res.json({ message: error, data: null });
+    VercelResponse.json({ message: error, data: null });
   }
 });
 
 //delete all schedules
-scheduleRouter.delete("/delete/:id", async (req, res) => {
-  const schedulId = req.params.id;
+scheduleRouter.delete("/delete/:id", async (VercelRequest, VercelResponse) => {
+  const schedulId = VercelRequest.query.id;
   try {
     const scheduleToDelete = await Schedule.findOneAndDelete({
       id: schedulId,
     });
     if (scheduleToDelete)
-      res.status(200).json({
+      VercelResponse.status(200).json({
         data: null,
         message:
           "Schedules " +
-          scheduleToDelete.schedules +
+          scheduleToDelete.schedule +
           " were deleted successfuly",
       });
   } catch (error) {
-    res.json({ message: error.message, data: null });
+    VercelResponse.json({ message: error.message, data: null });
   }
 });
 
