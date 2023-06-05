@@ -24,9 +24,10 @@ scheduleRouter.post("/add", async (req, res) => {
 
   if (scheduleAvailable) {
     try {
-      await Schedule.findByIdAndUpdate(
-        { _id: scheduleAvailable._id },
+      await Schedule.findOneAndUpdate(
+        { id: scheduleAvailable.id },
         {
+          time: newSchedule.time,
           schedule: newSchedule.schedule,
           scheduletype: newSchedule.scheduletype,
         }
@@ -44,7 +45,7 @@ scheduleRouter.post("/add", async (req, res) => {
       await newSchedule.save().then((response) => {
         res.status(200).json({
           message: "Schedule created succesfully",
-          data: response.data,
+          data: response,
         });
       });
     } catch (error) {
@@ -85,7 +86,6 @@ scheduleRouter.get("/:id", async (req, res) => {
 //delete all schedules
 scheduleRouter.delete("/delete/:id", async (req, res) => {
   const schedulId = req.params.id;
-  const schedules = await Schedule.find;
   try {
     const scheduleToDelete = await Schedule.findOneAndDelete({
       id: schedulId,
