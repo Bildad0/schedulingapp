@@ -5,7 +5,6 @@ const { v4: uuidv4 } = require("uuid");
 const jtw = require("jsonwebtoken");
 const User = require("../models/userModel");
 const authRouter = express.Router();
-const { VercelRequest, VercelResponse } = require("@vercel/node");
 
 authRouter.post("/register", async (req, res) => {
   const { fname, lname, email, password, username, timezone, image } = req.body;

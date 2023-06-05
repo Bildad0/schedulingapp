@@ -1,4 +1,3 @@
-const { VercelRequest, VercelResponse } = require("@vercel/node");
 const express = require("express");
 const userRouter = express.Router();
 const User = require("../models/userModel");
@@ -6,24 +5,23 @@ const bcrypt = require("bcrypt");
 const fs = require("fs");
 
 //get user by id
-userRouter.get("/profile/:id", async (VercelRequest, VercelResponse) => {
-  const userId = VercelRequest.params.id;
+userRouter.get("/profile/:id", async (req, res) => {
+  const userId = req.params.id;
   try {
     const user = await User.findOne({ id: userId });
     if (user) {
-      VercelResponse.status(200).json({ data: user });
+      res.status(200).json({ data: user });
     } else {
-      VercelResponse.status(404).json({ message: "User cannot be found" });
+      res.status(404).json({ message: "User cannot be found" });
     }
   } catch (error) {
-    VercelResponse.status(500).json({ message: `${error.message}` });
+    res.status(500).json({ message: `${error.message}` });
   }
 });
 
 //edit user
-userRouter.put("/edit/:id", async (VercelRequest, VercelResponse) => {
-  const { fname, lname, email, password, username, timezone, image } =
-    VercelRequest.body;
+userRouter.put("/edit/:id", async (req, res) => {
+  const { fname, lname, email, password, username, timezone, image } = req.body;
   try {
     //encrypt password
     const salt = await bcrypt.genSalt(10);
@@ -33,7 +31,7 @@ userRouter.put("/edit/:id", async (VercelRequest, VercelResponse) => {
     var imageData = fs.readFileSync(image);
     var imageUri = imageData.toString("base64");
 
-    const updatedUser = await User.findByIdAndUpdate(VercelRequest.params.id, {
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, {
       $set: {
         fname,
         lname,
@@ -45,35 +43,28 @@ userRouter.put("/edit/:id", async (VercelRequest, VercelResponse) => {
       },
     });
 
-    VercelResponse.status(200).json({
+    res.status(200).json({
       message: "User " + updatedUser.username + " updated successfuly",
       data: updatedUser,
     });
   } catch (error) {
-    VercelResponse.status(error.status).json({
-      message: `${error.message}`,
-      data: null,
-    });
+    res.status(error.status).json({ message: `${error.message}`, data: null });
   }
 });
 
 //get all users for admin
-userRouter.get("/", async (VercelRequest, VercelResponse) => {
+userRouter.get("/", async (req, res) => {
   try {
     const users = await User.find().limit(100);
     if (users[0] == null) {
-      VercelResponse.status(404).json({ message: "No Users", data: null });
+      res.status(404).json({ message: "No Users", data: null });
     } else {
-      VercelResponse.status(200).json({
-        data: users,
-        message: `${users.length} users found`,
-      });
+      res
+        .status(200)
+        .json({ data: users, message: `${users.length} users found` });
     }
   } catch (error) {
-    VercelResponse.status(500).json({
-      message: `${error.message}`,
-      data: null,
-    });
+    res.status(500).json({ message: `${error.message}`, data: null });
   }
 });
 
