@@ -95,7 +95,7 @@ scheduleRouter.delete("/delete/:id", async (req, res) => {
         data: null,
         message:
           "Schedules " +
-          scheduleToDelete.schedule +
+          scheduleToDelete.schedules +
           " were deleted successfuly",
       });
   } catch (error) {

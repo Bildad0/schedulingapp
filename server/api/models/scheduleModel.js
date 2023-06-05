@@ -5,8 +5,12 @@ const scheduleSchema = new mongoose.Schema(
   {
     id: { type: String },
     userId: { type: String, required: "user needed" },
-    time: { type: String, required: "Time or date is required" },
-    schedule: { type: String },
+    date: { type: String, required: "Date is required" },
+    schedules: {
+      scheduleName: { type: String, required: true },
+      time: { type: String, required: true },
+    },
+
     scheduletype: { type: String, required: "Must specify type" },
     guest_id: [{ type: String }],
   },
