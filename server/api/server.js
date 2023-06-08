@@ -18,8 +18,12 @@ require("dotenv").config();
 //       "Origin, X-Requested-With, Content-Type, Accept",
 //   },
 // };
+
 app.use(cors());
 app.use(express.json());
+app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
+app.use("/api/schedules", scheduleRouter);
 
 mongoose.set("strictQuery", true);
 mongoose
@@ -34,6 +38,3 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-app.use("/api/auth", authRouter);
-app.use("/api/users", userRouter);
-app.use("/api/schedules", scheduleRouter);
