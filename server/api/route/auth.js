@@ -1,8 +1,9 @@
 const express = require("express");
 const fs = require("fs");
-const bcrypt = require("bcrypt");
+const { genSaltSync, hashSync } =require("bcrypt-ts");
+const  { compareSync } = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
-const jtw = require("jsonwebtoken");
+const jtw = require("json-web-token");
 const User = require("../models/userModel");
 const authRouter = express.Router();
 
@@ -23,8 +24,8 @@ authRouter.post("/register", async (req, res) => {
     var imageUri = imageData.toString("base64");
 
     //encrypting user password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const salt = genSaltSync(10);
+    const hashedPassword = hashSync(password, salt);
 
     const newUser = User({
       id: uuidv4(),
@@ -68,7 +69,8 @@ authRouter.post("/login", async (req, res) => {
   try {
     const { input, password } = req.body;
     await User.findOne({ email: input }).then((response) => {
-      const checkPasswordMatch = bcrypt.compare(password, response.password);
+
+      const checkPasswordMatch = compareSync(password, response.password);
       if (!checkPasswordMatch) {
         res.status(404).json({
           message: "Incorrect password",
